@@ -3,2242 +3,394 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1C5E45">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="請假系統">
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-192x192.png">
-<title>淡水信用合作社 請假系統</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>高知五日行程</title>
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="高知之旅">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --primary: #1C5E45;
-  --primary-light: #3E8A66;
-  --primary-dark: #0E3D2C;
-  --gold: #C9B98C;
-  --danger: #A05252;
-  --success: #1C5E45;
-  --warning: #B08A3E;
-  --bg: #F7F5EF;
-  --card: #ffffff;
-  --border: #E4DCC9;
-  --text: #2E2C27;
-  --muted: #8C8678;
-  --radius: 14px;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+:root{--ink:#1a1208;--paper:#f5f0e8;--paper2:#ede7d9;--accent:#c0392b;--accent2:#e67e22;--muted:#7a6e5f;--light:#b8a89a;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;overflow-x:hidden;}
 
-#page-login { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:1rem; background:linear-gradient(160deg, #0E3D2C 0%, #1C5E45 55%, #3E8A66 100%); }
-.login-card { background:var(--card); border-radius:22px; padding:2rem 1.75rem; width:100%; max-width:380px; box-shadow:0 12px 40px rgba(0,0,0,0.25); overflow:hidden; }
-.login-hero { position:relative; overflow:hidden; background:var(--primary); color:#fff; margin:-2rem -1.75rem 1.6rem; padding:2rem 1.75rem 1.8rem; }
-.login-hero::before { content:""; position:absolute; right:-70px; top:-80px; width:220px; height:220px; border-radius:50%; background:var(--primary-dark); opacity:.55; }
-.login-hero::after { content:""; position:absolute; left:-60px; bottom:-130px; width:260px; height:180px; border-radius:50%; background:var(--gold); opacity:.85; }
-.login-hero-inner { position:relative; z-index:1; }
-.login-brand { font-size:11px; letter-spacing:2.5px; opacity:.85; }
-.login-title { font-size:23px; font-weight:700; margin-top:4px; }
-.login-sub { font-size:12px; opacity:.75; margin-top:8px; }
-.form-group { margin-bottom:1rem; }
-.form-group label { display:block; font-size:12px; color:var(--muted); margin-bottom:5px; font-weight:500; }
-.form-group input { width:100%; padding:10px 12px; border:1.5px solid var(--border); border-radius:8px; font-size:14px; color:var(--text); background:#fafafa; transition:border-color .2s; font-family:inherit; }
-.form-group input:focus { outline:none; border-color:var(--primary-light); background:#fff; }
-.btn-login { width:100%; padding:12px; border:none; border-radius:999px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; background:var(--primary); color:#fff; letter-spacing:.05em; }
-.error-msg { color:var(--danger); font-size:12px; margin-top:6px; display:none; }
+header{position:relative;padding:2.5rem 1.5rem 1.5rem;background:var(--ink);color:var(--paper);overflow:hidden;}
+header::before{content:'高知';position:absolute;right:-0.05em;top:-0.1em;font-family:'Noto Serif TC',serif;font-size:8rem;font-weight:900;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none;}
+.header-label{font-size:10px;letter-spacing:.3em;color:var(--accent2);margin-bottom:.4rem;}
+header h1{font-family:'Noto Serif TC',serif;font-size:1.9rem;font-weight:900;line-height:1.2;margin-bottom:.75rem;}
+header h1 span{color:var(--accent);}
+.header-meta{display:flex;gap:.5rem;flex-wrap:wrap;}
+.meta-pill{font-size:11px;color:rgba(245,240,232,.6);background:rgba(255,255,255,.08);padding:3px 9px;border-radius:20px;border:.5px solid rgba(255,255,255,.1);}
+.divider-line{height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2),transparent);}
 
-#page-app { display:none; min-height:100vh; padding-bottom:70px; }
-.topbar { position:relative; overflow:hidden; background:var(--primary); color:#fff; padding:1.1rem 1.25rem 1.35rem; border-radius:0 0 22px 22px; }
-.topbar::before { content:""; position:absolute; right:-90px; top:-70px; width:280px; height:280px; border-radius:50%; background:var(--primary-dark); opacity:.55; }
-.topbar::after { content:""; position:absolute; left:-80px; bottom:-165px; width:340px; height:240px; border-radius:50%; background:var(--gold); opacity:.85; }
-.topbar-inner { position:relative; z-index:1; }
-.topbar-brand { font-size:11px; letter-spacing:2px; opacity:.85; }
-.topbar-title { font-size:21px; font-weight:700; margin:2px 0 12px; }
-.topbar-user { display:inline-flex; align-items:center; gap:9px; background:#fff; color:var(--text); border-radius:999px; padding:6px 16px 6px 6px; box-shadow:0 4px 14px rgba(0,0,0,.15); }
-.topbar-avatar { width:32px; height:32px; border-radius:50%; background:var(--primary); color:#fff; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
-.topbar-user-text { font-size:11px; color:var(--muted); line-height:1.35; text-align:left; }
-.topbar-user-text strong { display:block; font-size:13px; color:var(--text); }
-.bottom-nav { position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid var(--border); display:flex; z-index:200; box-shadow:0 -4px 16px rgba(46,44,39,.08); padding-bottom:env(safe-area-inset-bottom); }
-.bnav { flex:1; padding:.65rem .3rem .55rem; text-align:center; color:var(--muted); font-size:9px; border:none; background:none; cursor:pointer; font-family:inherit; transition:color .2s; }
-.bnav.active { color:var(--primary); font-weight:700; }
-.bnav-icon { font-size:1.2rem; display:block; margin-bottom:2px; }
-.content { padding:1rem 1rem .5rem; }
+#weather-bar{background:var(--paper2);border-bottom:1px solid rgba(0,0,0,.08);padding:.75rem 1.25rem;display:flex;align-items:center;gap:10px;min-height:56px;}
+.wx-icon{font-size:1.8rem;flex-shrink:0;}
+.wx-info{flex:1;min-width:0;}
+.wx-temp{font-size:15px;font-weight:500;color:var(--ink);}
+.wx-desc{font-size:11px;color:var(--muted);margin-top:2px;}
+.wx-extra{font-size:11px;color:var(--muted);margin-left:auto;text-align:right;flex-shrink:0;line-height:1.6;}
+.wx-loading{font-size:12px;color:var(--muted);}
 
-.page { display:none; }
-.page.active { display:block; }
-#hr-all { padding:0 1rem; }
-#hr-all.active { display:flex !important; }
-.page-title { font-size:1.05rem; font-weight:700; color:var(--primary-dark); margin-bottom:1rem; }
-.section-title { font-size:.8rem; font-weight:600; color:var(--muted); margin:1rem 0 .5rem; letter-spacing:.05em; text-transform:uppercase; }
+.tabs-wrapper{position:sticky;top:0;z-index:100;background:var(--paper2);border-bottom:1px solid rgba(0,0,0,.1);overflow-x:auto;scrollbar-width:none;}
+.tabs-wrapper::-webkit-scrollbar{display:none;}
+.tabs{display:flex;padding:0 1rem;min-width:max-content;}
+.tab{padding:.7rem .9rem;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;user-select:none;}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab .tab-day{display:block;font-size:10px;color:var(--light);margin-bottom:1px;}
+.tab.active .tab-day{color:var(--accent2);}
 
-.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; margin-bottom:1rem; }
-.stat-card { background:var(--card); border-radius:var(--radius); padding:1rem .9rem; box-shadow:0 3px 10px rgba(46,44,39,.07); text-align:center; }
-.stat-label { font-size:11px; color:var(--muted); margin-bottom:.3rem; }
-.stat-val { font-size:1.6rem; font-weight:700; }
-.stat-val.green { color:var(--success); }
-.stat-val.orange { color:var(--warning); }
+.content{padding:0 1.25rem 6rem;display:none;}
+.content.active{display:block;}
+.day-section{display:none;animation:fadeUp .3s ease;}
+.day-section.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.form-card { background:var(--card); border-radius:var(--radius); padding:1.1rem; margin-bottom:.85rem; box-shadow:0 1px 4px rgba(0,0,0,.07); }
-.card { background:var(--card); border-radius:var(--radius); padding:1rem 1.1rem; margin-bottom:.85rem; box-shadow:0 1px 4px rgba(0,0,0,.07); }
-.form-row { margin-bottom:.85rem; }
-.form-row label { display:block; font-size:12px; color:var(--muted); margin-bottom:4px; font-weight:500; }
-.form-row input, .form-row select, .form-row textarea {
-  width:100%; padding:9px 11px; border:1.5px solid var(--border); border-radius:7px;
-  font-size:13px; color:var(--text); font-family:inherit; background:#fafafa;
-  -webkit-appearance:none; appearance:none;
-}
-.form-row select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a7a65'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; }
-.form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline:none; border-color:var(--primary-light); background:#fff; }
-.form-row textarea { min-height:80px; resize:vertical; }
-.form-2col { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
-.btn-submit { width:100%; padding:12px; border:none; border-radius:999px; font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; background:var(--primary); color:#fff; box-shadow:0 4px 12px rgba(28,94,69,.3); }
+.day-hero{padding:1.4rem 0 .9rem;border-bottom:1px solid rgba(0,0,0,.08);margin-bottom:1.2rem;}
+.day-hero-label{font-size:10px;letter-spacing:.25em;color:var(--accent2);margin-bottom:.3rem;}
+.day-hero h2{font-family:'Noto Serif TC',serif;font-size:1.35rem;font-weight:600;line-height:1.3;}
+.day-hero p{font-size:12px;color:var(--muted);margin-top:.3rem;}
 
-.leave-item { background:var(--card); border-radius:var(--radius); padding:.9rem 1rem; margin-bottom:.6rem; box-shadow:0 1px 4px rgba(0,0,0,.06); border-left:4px solid var(--border); }
-.leave-item.pending { border-left-color:var(--warning); }
-.leave-item.approved { border-left-color:var(--success); }
-.leave-item.rejected { border-left-color:var(--danger); }
-.leave-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.4rem; }
-.leave-name { font-size:14px; font-weight:600; color:var(--text); flex:1; min-width:0; }
-.leave-badge { font-size:11px; padding:3px 12px; border-radius:999px; font-weight:700; flex-shrink:0; margin-left:6px; white-space:nowrap; }
-.badge-pending { background:var(--gold); color:var(--primary-dark); }
-.badge-approved { background:var(--primary); color:#fff; }
-.badge-rejected { background:var(--danger); color:#fff; }
-.leave-meta { font-size:12px; color:var(--muted); line-height:1.8; }
-.leave-actions { display:flex; gap:.5rem; margin-top:.6rem; }
-.btn-sm { padding:6px 14px; font-size:12px; border-radius:6px; border:none; cursor:pointer; font-family:inherit; font-weight:600; }
-.btn-approve { background:var(--primary); color:#fff; }
-.btn-reject { background:var(--danger); color:#fff; }
-.btn-outline { background:transparent; border:1.5px solid var(--border); color:var(--text); }
+.item-card{display:flex;gap:1rem;padding:.9rem 0;border-bottom:.5px solid rgba(0,0,0,.07);}
+.item-card:last-child{border-bottom:none;}
+.item-left{display:flex;flex-direction:column;align-items:center;width:36px;flex-shrink:0;}
+.item-time{font-size:10px;color:var(--muted);text-align:center;line-height:1.3;white-space:nowrap;}
+.item-dot{width:8px;height:8px;border-radius:50%;background:var(--light);margin:5px 0 4px;flex-shrink:0;}
+.item-dot.red{background:var(--accent);}
+.item-dot.orange{background:var(--accent2);}
+.item-dot.green{background:#27ae60;}
+.item-line{width:1px;flex:1;background:rgba(0,0,0,.08);min-height:16px;}
+.item-body{flex:1;min-width:0;}
+.item-name{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4;margin-bottom:.25rem;}
+.item-note{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:.35rem;}
+.tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:500;}
+.tag-food{background:#fdf0e0;color:#8b4513;}
+.tag-sight{background:#e8f4f0;color:#1a5276;}
+.tag-move{background:#f0f0f0;color:#555;}
+.tag-fun{background:#fce8e8;color:#922b21;}
+.tag-hotel{background:#e8f8e8;color:#1e5e1e;}
 
-.filter-bar { background:var(--card); border-radius:var(--radius); padding:.75rem 1rem; margin-bottom:.75rem; box-shadow:0 1px 4px rgba(0,0,0,.07); display:flex; gap:.5rem; flex-wrap:wrap; }
-.filter-bar select { flex:1; min-width:100px; padding:7px 10px; border:1.5px solid var(--border); border-radius:7px; font-size:12px; font-family:inherit; -webkit-appearance:none; appearance:none; background:#fafafa; }
+.tip-box{background:var(--ink);color:var(--paper);border-radius:8px;padding:1rem 1.1rem;margin:1.2rem 0 .5rem;font-size:12px;line-height:1.7;position:relative;overflow:hidden;}
+.tip-box strong{color:var(--accent2);font-weight:500;display:block;margin-bottom:.3rem;font-size:11px;letter-spacing:.1em;}
+.highlights{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:.8rem 0 .4rem;}
+.highlights::-webkit-scrollbar{display:none;}
+.hl-pill{flex-shrink:0;background:var(--paper2);border:.5px solid rgba(0,0,0,.1);border-radius:8px;padding:.5rem .8rem;text-align:center;min-width:76px;}
+.hl-pill .hl-icon{font-size:1.3rem;display:block;margin-bottom:2px;}
+.hl-pill .hl-text{font-size:10px;color:var(--muted);}
 
-.calendar-wrap { background:var(--card); border-radius:var(--radius); padding:1rem; box-shadow:0 1px 4px rgba(0,0,0,.07); margin-bottom:1rem; }
-.cal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:.75rem; }
-.cal-title { font-size:14px; font-weight:600; color:var(--primary-dark); }
-.cal-nav { background:none; border:1.5px solid var(--border); border-radius:6px; padding:4px 10px; cursor:pointer; font-size:14px; color:var(--primary); }
-.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
-.cal-day-header { font-size:10px; color:var(--muted); text-align:center; padding:4px 0; font-weight:500; }
-.cal-day { height:48px; border-radius:6px; padding:3px 1px; text-align:center; cursor:default; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; overflow:hidden; }
-.cal-day-num { font-size:11px; font-weight:500; }
-.cal-day.today { background:#e4f0e8; }
-.cal-day.today .cal-day-num { color:var(--primary); font-weight:700; }
-.cal-day.has-leave { background:#fff3cd; cursor:pointer; }
-.cal-day.has-pending { background:#fce8e8; cursor:pointer; }
-.cal-day.has-leave.has-pending { background:linear-gradient(135deg,#fff3cd 50%,#fce8e8 50%); cursor:pointer; }
-.cal-day.is-proxy { background:#dce8ff; cursor:pointer; }
-.cal-day.has-leave.is-proxy { background: linear-gradient(135deg, #fff3cd 50%, #dce8ff 50%); cursor:pointer; }
-.cal-dot { width:5px; height:5px; border-radius:50%; background:var(--warning); margin:1px 1px 0; flex-shrink:0; }
-.cal-dot-proxy { width:5px; height:5px; border-radius:50%; background:#f39c12; margin:1px auto 0; }
-.cal-day.other-month { opacity:.3; }
-.cal-day.is-holiday { background:#fdedeb; }
-.cal-day.is-holiday .cal-day-num { color:#c0392b; font-weight:600; }
-.cal-holiday-name { display:block; font-size:8px; color:#c0392b; line-height:1.15; }
+/* LEDGER PAGE */
+.page{display:none;padding:1.5rem 1.25rem 6rem;animation:fadeUp .3s ease;}
+.page.active{display:block;}
+.page-title{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:600;margin-bottom:1.2rem;color:var(--ink);}
+.ledger-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:1.25rem;}
+.sum-card{background:var(--paper2);border-radius:8px;padding:.75rem;text-align:center;}
+.sum-label{font-size:10px;color:var(--muted);margin-bottom:.2rem;}
+.sum-val{font-size:15px;font-weight:500;color:var(--ink);}
+.sum-val.red{color:var(--accent);}
+.ledger-form{background:var(--paper2);border-radius:10px;padding:1rem;margin-bottom:1.25rem;}
+.form-row{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
+.form-row:last-child{margin-bottom:0;}
+.form-label{font-size:11px;color:var(--muted);width:32px;flex-shrink:0;}
+input[type=text],input[type=number],select{flex:1;background:var(--paper);border:.5px solid rgba(0,0,0,.15);border-radius:6px;padding:7px 10px;font-size:13px;color:var(--ink);font-family:'Noto Sans TC',sans-serif;min-width:0;-webkit-appearance:none;appearance:none;}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237a6e5f'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;padding-right:22px;}
+.btn-add{width:100%;padding:9px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:13px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;margin-top:6px;font-weight:500;}
+.btn-add:active{opacity:.85;}
+.ledger-item{display:flex;align-items:center;gap:10px;padding:.75rem 0;border-bottom:.5px solid rgba(0,0,0,.07);}
+.ledger-item:last-child{border-bottom:none;}
+.li-cat{font-size:1.2rem;width:28px;text-align:center;flex-shrink:0;}
+.li-body{flex:1;min-width:0;}
+.li-name{font-size:13px;font-weight:500;color:var(--ink);}
+.li-meta{font-size:11px;color:var(--muted);margin-top:1px;}
+.li-amt{font-size:14px;font-weight:500;color:var(--accent);flex-shrink:0;}
+.li-del{font-size:16px;color:var(--light);cursor:pointer;padding:4px 6px;flex-shrink:0;}
+.li-del:active{color:var(--accent);}
+.empty-hint{text-align:center;color:var(--light);font-size:13px;padding:2.5rem 0;}
+.rate-note{font-size:11px;color:var(--muted);text-align:right;margin-bottom:.75rem;}
 
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:500; display:none; align-items:center; justify-content:center; padding:1rem; }
-.modal-overlay.show { display:flex; }
-.modal { background:#fff; border-radius:14px; padding:1.5rem; width:100%; max-width:420px; max-height:90vh; overflow-y:auto; }
-.modal-title { font-size:1rem; font-weight:700; color:var(--primary-dark); margin-bottom:1rem; }
-.modal-body { font-size:13px; line-height:2; color:var(--text); }
-.modal-actions { display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; }
+/* INFO PAGE */
+.info-card{background:var(--paper2);border-radius:10px;padding:1rem 1.1rem;margin-bottom:.9rem;}
+.info-card h3{font-size:13px;font-weight:500;color:var(--accent2);margin-bottom:.5rem;letter-spacing:.05em;}
+.info-card p,.info-card li{font-size:13px;color:var(--ink);line-height:1.8;}
+.info-card ul{padding-left:1.1rem;}
 
-#page-changepw { display:none; position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:900; align-items:center; justify-content:center; padding:1rem; }
-#page-changepw.show { display:flex; }
-.changepw-card { background:#fff; border-radius:14px; padding:1.75rem 1.5rem; width:100%; max-width:360px; }
-.changepw-card h2 { font-size:1rem; font-weight:700; color:var(--primary-dark); margin-bottom:.4rem; }
-.changepw-card p { font-size:12px; color:var(--muted); margin-bottom:1.25rem; }
-.empty-hint { text-align:center; color:var(--muted); font-size:13px; padding:2rem 0; }
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--ink);display:flex;border-top:1px solid rgba(255,255,255,.08);z-index:200;}
+.bnav-btn{flex:1;padding:.7rem .5rem .65rem;text-align:center;cursor:pointer;color:rgba(245,240,232,.4);font-size:10px;transition:color .2s;border:none;background:none;font-family:'Noto Sans TC',sans-serif;}
+.bnav-btn.active{color:var(--accent2);}
+.bnav-icon{font-size:1.3rem;display:block;margin-bottom:2px;}
 </style>
 </head>
 <body>
 
-<div id="page-login">
-  <div class="login-card">
-    <div class="login-hero">
-      <div class="login-hero-inner">
-        <div class="login-brand">新北市淡水信用合作社</div>
-        <div class="login-title">員工請假系統</div>
-        <div class="login-sub">Employee Leave Management</div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label>員工編號</label>
-      <input type="text" id="login-empno" placeholder="請輸入員工編號" inputmode="numeric" />
-    </div>
-    <div class="form-group">
-      <label>密碼</label>
-      <input type="password" id="login-pw" placeholder="預設密碼為員工編號" onkeydown="if(event.key==='Enter')doLogin()" />
-    </div>
-    <div class="error-msg" id="login-error"></div>
-    <br>
-    <button class="btn-login" onclick="doLogin()">登　入</button>
+<header>
+  <div class="header-label">TRAVEL ITINERARY 2025</div>
+  <h1>高知<span>五日</span><br>四夜之旅</h1>
+  <div class="header-meta">
+    <span class="meta-pill">🗓 週六出發 → 週三返台</span>
+    <span class="meta-pill">✈️ 虎航直飛</span>
+    <span class="meta-pill">🏨 OMO7 × Comfort</span>
+  </div>
+</header>
+<div class="divider-line"></div>
+
+<!-- WEATHER BAR -->
+<div id="weather-bar">
+  <div class="wx-loading">🌤 正在抓取高知天氣...</div>
+</div>
+
+<!-- DAY TABS -->
+<div class="tabs-wrapper" id="tabs-wrapper">
+  <div class="tabs">
+    <div class="tab active" onclick="showDay(0)"><span class="tab-day">DAY 1 · 週六</span>抵達市區</div>
+    <div class="tab" onclick="showDay(1)"><span class="tab-day">DAY 2 · 週日</span>四萬十川</div>
+    <div class="tab" onclick="showDay(2)"><span class="tab-day">DAY 3 · 週一</span>桂濱水族</div>
+    <div class="tab" onclick="showDay(3)"><span class="tab-day">DAY 4 · 週二</span>OMO7充電</div>
+    <div class="tab" onclick="showDay(4)"><span class="tab-day">DAY 5 · 週三</span>返台</div>
   </div>
 </div>
 
-<div id="page-changepw">
-  <div class="changepw-card">
-    <h2>🔒 請修改密碼</h2>
-    <p>第一次登入需設定新密碼，密碼長度至少6位</p>
-    <div class="form-group">
-      <label>新密碼（至少6位）</label>
-      <input type="password" id="new-pw1" placeholder="請輸入新密碼" />
+<!-- 行程頁 -->
+<div id="page-itinerary" class="content active">
+
+  <div class="day-section active" id="day-0">
+    <div class="day-hero"><div class="day-hero-label">DAY 1 · 週六</div><h2>抵達高知 · 市區初探</h2><p>台北 → 高知龍馬空港</p></div>
+    <div class="highlights">
+      <div class="hl-pill"><span class="hl-icon">🐟</span><span class="hl-text">炙燒鰹魚</span></div>
+      <div class="hl-pill"><span class="hl-icon">🏪</span><span class="hl-text">弘人市場</span></div>
+      <div class="hl-pill"><span class="hl-icon">🍜</span><span class="hl-text">安兵衛拉麵</span></div>
     </div>
-    <div class="form-group">
-      <label>確認新密碼</label>
-      <input type="password" id="new-pw2" placeholder="再輸入一次" />
-    </div>
-    <div class="error-msg" id="changepw-error"></div>
-    <br>
-    <button class="btn-login" onclick="doChangePw()">確認修改</button>
+    <div class="item-card"><div class="item-left"><div class="item-time">下午</div><div class="item-dot orange"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">虎航直飛抵達高知龍馬空港</div><div class="item-note">機場無VJB，記得在飛機上先填好入境卡。搭快速巴士到市區約40分鐘，雙人買來回票比較划算</div><div class="tags"><span class="tag tag-move">✈ 交通</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">傍晚</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">帶屋町商店街 · 弘人市場</div><div class="item-note">高知必去，匯集特色小吃與伴手禮，邊逛邊吃就好</div><div class="tags"><span class="tag tag-sight">👀 景點</span><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">晚上</div><div class="item-dot red"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">明神丸 — 炙燒鰹魚</div><div class="item-note">弘人市場內最紅炙燒鰹魚專賣店，高知名物，必吃</div><div class="tags"><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">宵夜</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">屋台安兵衛 — 拉麵</div><div class="item-note">便宜好吃，肚子還有空間就去</div><div class="tags"><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">住宿</div><div class="item-dot green"></div></div><div class="item-body"><div class="item-name">Comfort Hotel Kochi</div><div class="item-note">JR站附近，含早餐。Agoda刷Mastercard可享88折</div><div class="tags"><span class="tag tag-hotel">🏨 住宿</span></div></div></div>
   </div>
+
+  <div class="day-section" id="day-1">
+    <div class="day-hero"><div class="day-hero-label">DAY 2 · 週日</div><h2>四萬十川 · 騎車搭船</h2><p>重頭戲！空曠幾乎沒有人</p></div>
+    <div class="highlights">
+      <div class="hl-pill"><span class="hl-icon">🚲</span><span class="hl-text">電動腳踏車</span></div>
+      <div class="hl-pill"><span class="hl-icon">⛵</span><span class="hl-text">屋形船</span></div>
+      <div class="hl-pill"><span class="hl-icon">🌊</span><span class="hl-text">清流河景</span></div>
+    </div>
+    <div class="tip-box"><strong>⚠ 出發前注意</strong>班次不多，前一晚先查好 Google Map 時間！過紅鐵橋後無超商，記得帶水和糧食。</div>
+    <div class="item-card"><div class="item-left"><div class="item-time">08:00</div><div class="item-dot orange"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">高知JR站 → 中村站</div><div class="item-note">車程約1.5小時。抵達後出口左轉30秒到觀光案內所</div><div class="tags"><span class="tag tag-move">🚃 交通</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">抵達後</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">觀光案內所 — 租電動腳踏車</div><div class="item-note">附繁體中文地圖，沿路騎就好。最晚 17:00 前還車</div><div class="tags"><span class="tag tag-fun">🎯 體驗</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">上午</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">紅鐵橋 → 沿四萬十川騎行</div><div class="item-note">騎到屋形船約1小時，慢慢逛約2.5小時</div><div class="tags"><span class="tag tag-sight">👀 景點</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">中午</div><div class="item-dot red"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">四萬十川屋形船 ⛵</div><div class="item-note">每小時一班，有人就開，不需預約。附近便當店解決午餐</div><div class="tags"><span class="tag tag-fun">🎯 體驗</span><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">16:30</div><div class="item-dot orange"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">搭特快車回高知站</div><div class="item-note">車站旁有伴手禮店可順手採購</div><div class="tags"><span class="tag tag-move">🚃 交通</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">晚上</div><div class="item-dot red"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">俺の串 なおさん — 居酒屋</div><div class="item-note">都是當地人的居酒屋，東西好吃。騎車辛苦了，好好補一頓</div><div class="tags"><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">住宿</div><div class="item-dot green"></div></div><div class="item-body"><div class="item-name">Comfort Hotel Kochi</div><div class="tags"><span class="tag tag-hotel">🏨 住宿</span></div></div></div>
+  </div>
+
+  <div class="day-section" id="day-2">
+    <div class="day-hero"><div class="day-hero-label">DAY 3 · 週一</div><h2>桂濱海灘 · 企鵝互動</h2><p>每項體驗只要100円！</p></div>
+    <div class="highlights">
+      <div class="hl-pill"><span class="hl-icon">🐧</span><span class="hl-text">企鵝互動</span></div>
+      <div class="hl-pill"><span class="hl-icon">🌊</span><span class="hl-text">桂濱海灘</span></div>
+      <div class="hl-pill"><span class="hl-icon">🌿</span><span class="hl-text">牧野植物園</span></div>
+    </div>
+    <div class="item-card"><div class="item-left"><div class="item-time">早上</div><div class="item-dot orange"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">高知觀光案內所 — 買 My遊Bus券</div><div class="item-note">JR站旁，可免費寄放行李、租腳踏車。也可提前 KKday 購買</div><div class="tags"><span class="tag tag-move">🚌 交通</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">上午</div><div class="item-dot red"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">桂濱海灘 + 桂濱水族館 🐧</div><div class="item-note">從車站搭車約40分鐘。人少、互動豐富，每項體驗100円，企鵝互動就在這！</div><div class="tags"><span class="tag tag-fun">🎯 體驗</span><span class="tag tag-sight">👀 景點</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">午餐</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">桂濱附近 — 海鮮拉麵</div><div class="tags"><span class="tag tag-food">🍱 美食</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">下午</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">五台山展望台 → 竹林寺 → 牧野植物園</div><div class="item-note">My遊Bus串聯這幾個景點，秋天景色很美</div><div class="tags"><span class="tag tag-sight">👀 景點</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">傍晚</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">高知城 — 順遊</div><div class="tags"><span class="tag tag-sight">👀 景點</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">check-in</div><div class="item-dot green"></div></div><div class="item-body"><div class="item-name">✨ OMO7高知 — 入住</div><div class="item-note">記得使用一萬日幣折價券！OMO Ranger 會安排在地體驗</div><div class="tags"><span class="tag tag-hotel">🏨 住宿</span></div></div></div>
+  </div>
+
+  <div class="day-section" id="day-3">
+    <div class="day-hero"><div class="day-hero-label">DAY 4 · 週二</div><h2>OMO7 深度 · 充電休息日</h2><p>步調放慢，刻意留白</p></div>
+    <div class="highlights">
+      <div class="hl-pill"><span class="hl-icon">🏨</span><span class="hl-text">OMO7早餐</span></div>
+      <div class="hl-pill"><span class="hl-icon">🚶</span><span class="hl-text">在地散步</span></div>
+      <div class="hl-pill"><span class="hl-icon">🛍</span><span class="hl-text">補買伴手禮</span></div>
+    </div>
+    <div class="item-card"><div class="item-left"><div class="item-time">早上</div><div class="item-dot green"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">OMO7 早餐 + OMO Ranger 在地導覽</div><div class="item-note">跟著走就好，不用自己策劃</div><div class="tags"><span class="tag tag-hotel">🏨 住宿</span><span class="tag tag-fun">🎯 體驗</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">下午</div><div class="item-dot"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">自由活動 / 播磨屋橋周邊閒逛</div><div class="item-note">刻意留白，給你們充電用的</div><div class="tags"><span class="tag tag-sight">👀 景點</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">晚上</div><div class="item-dot red"></div></div><div class="item-body"><div class="item-name">OMO7 晚餐 or 自行覓食</div><div class="item-note">一泊二食方案就在飯店吃，輕鬆結束最後完整夜晚</div><div class="tags"><span class="tag tag-food">🍱 美食</span></div></div></div>
+  </div>
+
+  <div class="day-section" id="day-4">
+    <div class="day-hero"><div class="day-hero-label">DAY 5 · 週三</div><h2>退房返台 · 帶著滿足回家</h2><p>高知 → 台北 → 淡水新市鎮</p></div>
+    <div class="highlights">
+      <div class="hl-pill"><span class="hl-icon">🎁</span><span class="hl-text">最後採購</span></div>
+      <div class="hl-pill"><span class="hl-icon">✈️</span><span class="hl-text">龍馬空港</span></div>
+      <div class="hl-pill"><span class="hl-icon">🏠</span><span class="hl-text">回新市鎮</span></div>
+    </div>
+    <div class="item-card"><div class="item-left"><div class="item-time">早上</div><div class="item-dot orange"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">退房 — 最後採購</div><div class="item-note">JR站旁伴手禮店或弘人市場，買最後沒帶到的東西</div><div class="tags"><span class="tag tag-food">🍱 伴手禮</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">前往</div><div class="item-dot red"></div><div class="item-line"></div></div><div class="item-body"><div class="item-name">高知龍馬空港</div><div class="item-note">搭機場巴士或計程車前往</div><div class="tags"><span class="tag tag-move">✈ 交通</span></div></div></div>
+    <div class="item-card"><div class="item-left"><div class="item-time">返台</div><div class="item-dot green"></div></div><div class="item-body"><div class="item-name">虎航返台 → 淡水新市鎮 🏠</div><div class="item-note">回到最愛的淡水家，把電充滿，完美結束高知之旅</div><div class="tags"><span class="tag tag-move">✈ 返家</span></div></div></div>
+    <div class="tip-box"><strong>💡 回程提醒</strong>虎航折價券 · OMO7一萬日幣券 · My遊Bus券記得確認使用期限。</div>
+  </div>
+
+</div><!-- end page-itinerary -->
+
+<!-- 記帳頁 -->
+<div id="page-ledger" class="page">
+  <div class="page-title">旅遊記帳本</div>
+  <div class="ledger-summary">
+    <div class="sum-card"><div class="sum-label">總支出(日幣)</div><div class="sum-val red" id="total-jpy">¥ 0</div></div>
+    <div class="sum-card"><div class="sum-label">折合台幣</div><div class="sum-val" id="total-twd">NT$ 0</div></div>
+    <div class="sum-card"><div class="sum-label">紀錄筆數</div><div class="sum-val" id="total-count">0 筆</div></div>
+  </div>
+  <div class="ledger-form">
+    <div class="form-row">
+      <div class="form-label">項目</div>
+      <input type="text" id="inp-name" placeholder="例：炙燒鰹魚" />
+    </div>
+    <div class="form-row">
+      <div class="form-label">金額</div>
+      <input type="number" id="inp-amt" placeholder="金額" inputmode="numeric" />
+      <select id="inp-currency" style="max-width:85px">
+        <option value="JPY">¥ 日幣</option>
+        <option value="TWD">NT$ 台幣</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-label">分類</div>
+      <select id="inp-cat">
+        <option value="🍱">🍱 餐飲</option>
+        <option value="🎫">🎫 門票體驗</option>
+        <option value="🚃">🚃 交通</option>
+        <option value="🏨">🏨 住宿</option>
+        <option value="🛍">🛍 購物</option>
+        <option value="💊">💊 其他</option>
+      </select>
+      <select id="inp-day" style="max-width:72px">
+        <option value="D1">D1</option>
+        <option value="D2">D2</option>
+        <option value="D3">D3</option>
+        <option value="D4">D4</option>
+        <option value="D5">D5</option>
+      </select>
+    </div>
+    <button class="btn-add" onclick="addEntry()">＋ 新增紀錄</button>
+  </div>
+  <div class="rate-note">匯率參考：¥1 ≈ NT$0.215（可依實際匯率調整）</div>
+  <div id="ledger-list"></div>
 </div>
 
-<div id="page-app">
-  <div class="topbar">
-    <div class="topbar-inner">
-      <div class="topbar-brand">新北市淡水信用合作社</div>
-      <div class="topbar-title">員工請假系統</div>
-      <div class="topbar-user">
-        <div class="topbar-avatar" id="topbar-avatar">？</div>
-        <div class="topbar-user-text">
-          <strong id="topbar-name">—</strong>
-          <span id="topbar-unit">—</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="content">
-    <div id="emp-home" class="page active">
-      <div class="page-title">我的假期</div>
-      <div class="stats-grid">
-        <div class="stat-card"><div class="stat-label">可用特休（天）</div><div class="stat-val green" id="emp-remain">—</div></div>
-        <div class="stat-card"><div class="stat-label">已使用（天）</div><div class="stat-val orange" id="emp-used">—</div></div>
-      </div>
-      <div class="section-title" style="margin-top:.25rem;">我的假單紀錄</div>
-      <div style="display:flex;gap:.5rem;margin-bottom:.6rem;">
-        <select id="emp-filter-type" onchange="filterEmpLeaves()" style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;">
-          <option value="">所有假別</option>
-          <option value="休假">🔴 休假</option>
-          <option value="病假">🟡 病假</option>
-          <option value="事假">🔵 事假</option>
-          <option value="其他假">🔵 其他假</option>
-        </select>
-        <select id="emp-filter-status" onchange="filterEmpLeaves()" style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;">
-          <option value="">所有狀態</option>
-          <option value="pending">待審核</option>
-          <option value="approved">已核准</option>
-          <option value="rejected">已拒絕</option>
-        </select>
-      </div>
-      <div id="emp-leave-list"><div class="empty-hint">載入中...</div></div>
-    </div>
-
-    <div id="emp-apply" class="page">
-      <div class="page-title">申請假單</div>
-      <div class="form-card">
-        <div class="form-row">
-          <label>假別</label>
-          <select id="apply-type" onchange="updateSubtype()">
-            <option value="休假">休假</option>
-            <option value="病假">病假</option>
-            <option value="事假">事假</option>
-            <option value="其他假">其他假</option>
-          </select>
-        </div>
-        <div class="form-row">
-          <label>假別細項</label>
-          <select id="apply-subtype"></select>
-        </div>
-        <div class="form-2col">
-          <div class="form-row"><label>開始日期</label><input type="date" id="apply-start-date" onchange="syncEndDate()" /></div>
-          <div class="form-row"><label>結束日期</label><input type="date" id="apply-end-date" onchange="calcDays()" /></div>
-        </div>
-        <div class="form-2col">
-          <div class="form-row">
-            <label>開始時間</label>
-            <select id="apply-start-time" onchange="calcDays()">
-              <option value="08:40">08:40（上午）</option>
-              <option value="12:50">12:50（下午）</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <label>結束時間</label>
-            <select id="apply-end-time" onchange="calcDays()">
-              <option value="12:40">12:40（中午）</option>
-              <option value="17:40" selected>17:40（下班）</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <label>天數</label>
-          <input type="number" id="apply-days" placeholder="例：1 或 0.5" step="0.5" min="0.5" />
-        </div>
-        <div class="form-row">
-          <label>請假事由</label>
-          <textarea id="apply-reason" placeholder="請輸入請假事由"></textarea>
-        </div>
-        <div class="form-row">
-          <label>職務代理人 — 擔任事務</label>
-          <input type="text" id="apply-proxy-duty" placeholder="代理人擔任事務（例：會計、出納）" />
-        </div>
-        <div class="form-row">
-          <label>職務代理人姓名</label>
-          <input type="text" id="apply-proxy-name" placeholder="代理人姓名（必填）" autocomplete="off" oninput="searchProxy(this.value)" />
-          <div id="proxy-suggestions" style="background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);display:none;max-height:180px;overflow-y:auto;margin-top:2px;"></div>
-          <div id="proxy-info" style="font-size:12px;color:var(--muted);margin-top:4px;display:none;"></div>
-        </div>
-        <div id="apply-error" class="error-msg"></div>
-        <br>
-        <button class="btn-submit" onclick="confirmLeave()">送出申請</button>
-
-    <!-- 確認送出 Modal -->
-    <div id="confirm-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9999;display:none;align-items:center;justify-content:center;">
-      <div style="background:#fff;border-radius:14px;padding:28px 24px;max-width:360px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.18);">
-        <div style="font-size:16px;font-weight:700;margin-bottom:16px;">📋 確認假單內容</div>
-        <div id="confirm-content" style="font-size:14px;line-height:2;color:#333;"></div>
-        <div style="display:flex;gap:10px;margin-top:20px;">
-          <button onclick="document.getElementById('confirm-modal').style.display='none'" style="flex:1;padding:10px;border:1.5px solid #ccc;border-radius:8px;background:#f5f5f5;cursor:pointer;font-size:14px;">返回修改</button>
-          <button onclick="doSubmitLeave()" style="flex:1;padding:10px;border:none;border-radius:8px;background:#1a5e38;color:#fff;cursor:pointer;font-size:14px;font-weight:600;">確認送出</button>
-        </div>
-      </div>
-    </div>
-      </div>
-    </div>
-
-    <!-- 主管：審核自己單位 -->
-    <div id="mgr-review" class="page">
-      <div class="page-title">待審假單</div>
-      <div id="mgr-pending-list"><div class="empty-hint">載入中...</div></div>
-      <div class="section-title" style="margin-top:1rem">已審假單</div>
-      <div id="mgr-done-list"><div class="empty-hint">載入中...</div></div>
-    </div>
-
-    <!-- 總經理：審核各單位主管 -->
-    <div id="gm-review" class="page">
-      <div class="page-title">主管假單審核</div>
-      <div id="gm-approve-all-bar" style="display:none;margin-bottom:.75rem">
-        <button onclick="approveAllLeaves('gm')" style="background:#1a5e38;color:#fff;border:none;border-radius:8px;padding:8px 18px;cursor:pointer;font-size:14px;font-weight:600;">✅ 一鍵核准全部待審</button>
-      </div>
-      <div id="gm-pending-list"><div class="empty-hint">載入中...</div></div>
-      <div class="section-title" style="margin-top:1rem">已審假單</div>
-      <div id="gm-done-list"><div class="empty-hint">載入中...</div></div>
-    </div>
-
-    <!-- 理事主席：審核總經理/副總 -->
-    <div id="chairman-review" class="page">
-      <div class="page-title">假單審核</div>
-      <div id="chairman-approve-all-bar" style="display:none;margin-bottom:.75rem">
-        <button onclick="approveAllLeaves('chairman')" style="background:#1a5e38;color:#fff;border:none;border-radius:8px;padding:8px 18px;cursor:pointer;font-size:14px;font-weight:600;">✅ 一鍵核准全部待審</button>
-      </div>
-      <div id="chairman-pending-list"><div class="empty-hint">載入中...</div></div>
-      <div class="section-title" style="margin-top:1rem">已審假單</div>
-      <div id="chairman-done-list"><div class="empty-hint">載入中...</div></div>
-    </div>
-
-    <!-- 行事曆（主管單位 + 個人代理人） -->
-    <div id="mgr-calendar" class="page">
-      <div class="page-title">行事曆</div>
-      <div id="cal-debug" style="font-size:11px;color:red;margin-bottom:.5rem;"></div>
-
-      <div class="calendar-wrap">
-        <div class="cal-header">
-          <button class="cal-nav" onclick="calPrev()">‹</button>
-          <div class="cal-title" id="cal-title">—</div>
-          <button class="cal-nav" onclick="calNext()">›</button>
-        </div>
-        <div class="cal-grid" id="cal-grid"></div>
-      </div>
-      <div style="display:flex;gap:1rem;margin-bottom:.5rem;font-size:11px;color:var(--muted);flex-wrap:wrap;">
-        <span><span style="display:inline-block;width:10px;height:10px;background:#c0392b;border-radius:50%;margin-right:4px;"></span>休假</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:#e67e22;border-radius:50%;margin-right:4px;"></span>病假</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:#4a7fcb;border-radius:50%;margin-right:4px;"></span>其他</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:#f39c12;border-radius:50%;margin-right:4px;"></span>代理</span>
-        <span><span style="display:inline-block;width:10px;height:10px;border:1.5px solid #c0392b;border-radius:50%;margin-right:4px;"></span>待審核</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:#fdedeb;border:1px solid #c0392b;border-radius:3px;margin-right:4px;"></span>國定假日</span>
-      </div>
-      <div id="cal-detail"><div class="empty-hint">點選有標記的日期查看詳情</div></div>
-    </div>
-
-    <!-- 人事：全員假單 -->
-    <div id="hr-all" class="page" style="display:none;flex-direction:column;height:calc(100vh - 56px);overflow:hidden;">
-      <div style="flex-shrink:0;padding:1rem 0 0;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem;">
-          <div class="page-title" style="margin-bottom:0;">全員假單</div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:11px;color:#856404;">🗑 刪除模式</span>
-            <div onclick="toggleAdminMode()" id="admin-toggle" style="width:40px;height:22px;background:#ccc;border-radius:12px;position:relative;cursor:pointer;flex-shrink:0;">
-              <div id="admin-knob" style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3);"></div>
-            </div>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
-          <select id="hr-filter-unit" onchange="updateEmpFilter()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;"><option value="">所有單位</option></select>
-          <select id="hr-filter-emp" onchange="filterHrLeaves()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;"><option value="">所有人員</option></select>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
-          <select id="hr-filter-status" onchange="filterHrLeaves()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;">
-            <option value="">所有狀態</option>
-            <option value="pending">待審核</option>
-            <option value="approved">已核准</option>
-            <option value="rejected">已拒絕</option>
-            <option value="unconfirmed">尚未打勾</option>
-          </select>
-          <select id="hr-filter-leave-type" onchange="filterHrLeaves()" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M0 0l5 6 5-6z%22 fill=%22%235a7a65%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 8px center;padding-right:24px;">
-            <option value="">所有假別</option>
-            <option value="休假">休假</option>
-            <option value="病假">病假</option>
-            <option value="事假">事假</option>
-            <option value="其他假">其他假</option>
-          </select>
-        </div>
-        <div style="display:flex;gap:.5rem;margin-bottom:.5rem;">
-          <button onclick="downloadLeaves()" style="flex:1;padding:9px;border:none;border-radius:7px;background:var(--primary);color:#fff;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;">⬇ 下載 Excel</button>
-          <label style="flex:1;padding:9px;border:1.5px solid var(--border);border-radius:7px;background:#fff;color:var(--muted);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;text-align:center;">⬆ 匯入 Excel<input type="file" id="import-file" accept=".xlsx,.xls,.csv" style="display:none" onchange="importLeaves(this)"></label>
-        </div>
-        <div id="import-msg" style="font-size:12px;color:var(--primary);margin-bottom:.4rem;display:none;"></div>
-        <div id="hr-count" style="font-size:11px;color:var(--muted);margin-bottom:.4rem;"></div>
-      </div>
-      <div id="hr-leave-list" style="flex:1;overflow-y:auto;padding-bottom:5rem;"></div>
-    </div>
-
-    <!-- 人事：年假總覽 -->
-    <div id="hr-annual" class="page" style="display:none;overflow-y:auto;height:calc(100vh - 56px);">
-      <div style="padding:1rem 1rem 0;position:sticky;top:0;background:var(--bg);z-index:10;padding-bottom:8px;">
-        <div class="page-title" style="margin-bottom:.75rem;">年假總覽</div>
-        <div style="display:flex;gap:8px;margin-bottom:.5rem;">
-          <select id="annual-filter-unit" onchange="renderAnnualOverview()" style="flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;">
-            <option value="">所有單位</option>
-          </select>
-          <button onclick="downloadAnnualExcel()" style="padding:8px 14px;background:var(--primary);color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;">⬇ 下載</button>
-        </div>
-      </div>
-      <div id="annual-list" style="padding:0 1rem 80px;">載入中...</div>
-    </div>
-
-    <!-- 人事：人員管理 -->
-    <div id="hr-mgmt" class="page" style="display:none;flex-direction:column;height:calc(100vh - 56px);overflow:hidden;">
-      <div style="flex-shrink:0;padding:1rem 0 0;">
-        <div class="page-title" style="margin-bottom:.75rem;">人員管理</div>
-
-        <div style="background:#fff3cd;border-radius:10px;padding:.75rem 1rem;margin-bottom:.75rem;box-shadow:0 1px 4px rgba(0,0,0,.07);">
-          <div style="display:flex;align-items:center;justify-content:space-between;">
-            <div style="font-size:13px;font-weight:600;color:#856404;">📅 年度特休更新</div>
-            <div onclick="toggleAnnualPanel()" id="annual-toggle" style="width:40px;height:22px;background:#ccc;border-radius:12px;position:relative;cursor:pointer;flex-shrink:0;">
-              <div id="annual-knob" style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.3);"></div>
-            </div>
-          </div>
-          <div id="annual-panel" style="display:none;margin-top:.75rem;">
-            <div style="font-size:12px;color:var(--muted);margin-bottom:.6rem;">輸入計算基準日（通常為當年年底），系統會根據每人到職日自動計算新的特休天數</div>
-            <div style="display:flex;gap:.5rem;margin-bottom:.5rem;">
-              <input type="date" id="annual-base-date" value="2027-12-31" style="flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;" />
-              <button onclick="updateAnnualLeave()" style="padding:8px 16px;border:none;border-radius:7px;background:#e67e22;color:#fff;cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;white-space:nowrap;">🔄 更新特休</button>
-            </div>
-            <div id="annual-update-msg" style="font-size:12px;display:none;"></div>
-          </div>
-        </div>
-
-        <div style="background:#fff;border-radius:10px;padding:1rem;box-shadow:0 1px 4px rgba(0,0,0,.07);margin-bottom:.75rem;">
-          <div style="font-size:13px;font-weight:600;color:var(--primary-dark);margin-bottom:.75rem;">➕ 新增員工帳號</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
-            <input id="new-emp-name" type="text" placeholder="姓名" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;" />
-            <input id="new-emp-no" type="text" placeholder="員工編號" inputmode="numeric" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;" />
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
-            <select id="new-emp-unit" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;background:#fff;-webkit-appearance:none;"></select>
-            <input id="new-emp-title" type="text" placeholder="職稱" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;" />
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.75rem;">
-            <input id="new-emp-days" type="number" placeholder="年度特休天數" step="0.5" min="0" style="padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;" />
-            <div style="font-size:11px;color:var(--muted);display:flex;align-items:center;">初始密碼為員工編號</div>
-          </div>
-          <div id="new-emp-error" style="font-size:12px;color:var(--danger);margin-bottom:.5rem;display:none;"></div>
-          <button onclick="addEmployee()" style="width:100%;padding:9px;border:none;border-radius:7px;background:var(--primary);color:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;">新增員工</button>
-        </div>
-        <div style="display:flex;gap:.5rem;margin-bottom:.5rem;">
-          <select id="mgmt-filter-unit" onchange="filterMgmtEmps()" style="flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;background:#fff;-webkit-appearance:none;"><option value="">所有單位</option></select>
-          <input id="mgmt-search" type="text" placeholder="搜尋姓名或編號" oninput="filterMgmtEmps()" style="flex:1;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:inherit;" />
-        </div>
-        <div id="mgmt-count" style="font-size:11px;color:var(--muted);margin-bottom:.4rem;"></div>
-      </div>
-      <div id="hr-mgmt-list" style="flex:1;overflow-y:auto;padding-bottom:5rem;"></div>
-    </div>
-
-    <!-- 設定 -->
-    <div id="page-settings" class="page">
-      <div class="page-title">帳號設定</div>
-      <div class="card" style="line-height:2;font-size:13px;">
-        <div class="stat-label" style="margin-bottom:.5rem">帳號資訊</div>
-        姓名：<strong id="set-name">—</strong><br>
-        員工編號：<strong id="set-empno">—</strong><br>
-        單位：<strong id="set-unit">—</strong><br>
-        職稱：<strong id="set-title">—</strong>
-      </div>
-      <div class="form-card">
-        <div class="stat-label" style="margin-bottom:.75rem">修改密碼</div>
-        <div class="form-row"><label>目前密碼</label><input type="password" id="set-old-pw" /></div>
-        <div class="form-row"><label>新密碼（至少6位）</label><input type="password" id="set-new-pw1" /></div>
-        <div class="form-row"><label>確認新密碼</label><input type="password" id="set-new-pw2" /></div>
-        <div class="error-msg" id="set-pw-error"></div>
-        <br>
-        <button class="btn-submit" onclick="doSettingChangePw()">確認修改密碼</button>
-      </div>
-      <br>
-      <button onclick="doLogout()" style="width:100%;padding:10px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:8px;font-size:13px;font-family:inherit;">登出</button>
-    </div>
-  </div>
-
-  <nav class="bottom-nav" id="bottom-nav"></nav>
+<!-- 資訊頁 -->
+<div id="page-info" class="page">
+  <div class="page-title">實用資訊</div>
+  <div class="info-card"><h3>✈ 航班</h3><p>台灣虎航直飛高知 — 每週三、六出發<br>週六去、週三回，只需請3天假</p></div>
+  <div class="info-card"><h3>🏨 住宿安排</h3><ul><li>D1–D2：Comfort Hotel Kochi（JR站旁，含早餐）</li><li>D3–D4：OMO7高知（記得用一萬日幣券）</li></ul></div>
+  <div class="info-card"><h3>🎫 折扣券</h3><ul><li>虎航折價券 NT$800</li><li>星野集團折價券 ¥10,000</li><li>Agoda Mastercard 88折（Comfort Hotel）</li></ul></div>
+  <div class="info-card"><h3>🚌 My遊Bus券</h3><p>高知JR站觀光案內所或 KKday 預購，可串聯桂濱、五台山、牧野植物園，含免費租腳踏車與行李寄放。</p></div>
+  <div class="info-card"><h3>⚠ 注意事項</h3><ul><li>機場無VJB，飛機上先填好入境卡</li><li>四萬十川班次少，提前查好時間</li><li>過紅鐵橋後無超商，記得帶糧食</li><li>腳踏車最晚17:00還</li><li>屋形船不需預約，有人就開</li></ul></div>
 </div>
 
-<div class="modal-overlay" id="modal-review">
-  <div class="modal">
-    <div class="modal-title" id="modal-review-title">審核假單</div>
-    <div id="modal-review-body" class="modal-body"></div>
-    <div class="form-row" style="margin-top:.75rem">
-      <label>拒絕原因（選填）</label>
-      <textarea id="modal-reject-reason" style="min-height:60px;width:100%;padding:8px;border:1.5px solid var(--border);border-radius:7px;font-family:inherit;font-size:13px;"></textarea>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-sm btn-approve" onclick="approveLeave()">✓ 核准</button>
-      <button class="btn-sm btn-reject" onclick="rejectLeave()">✗ 拒絕</button>
-      <button class="btn-sm btn-outline" onclick="closeModal()">取消</button>
-    </div>
-  </div>
-</div>
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bnav-btn active" id="bnav-itinerary" onclick="showPage('itinerary')">
+    <span class="bnav-icon">🗓</span>行程
+  </button>
+  <button class="bnav-btn" id="bnav-ledger" onclick="showPage('ledger')">
+    <span class="bnav-icon">💴</span>記帳
+  </button>
+  <button class="bnav-btn" id="bnav-info" onclick="showPage('info')">
+    <span class="bnav-icon">ℹ️</span>資訊
+  </button>
+</nav>
 
 <script>
-const SUPABASE_URL = 'https://nloegbeggwyprtqickqs.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_sTXYbDGJ006QGbausAlC-w_fYnWjbfW';
-const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// 理事主席員工編號
-const CHAIRMAN_EMP_NO = '0871004';
-const GM_EMP_NO = '0881032'; // 總經理蔡景偉
-
-const LEAVE_TYPES = {
-  '休假': ['特別休假','防疫隔離假','防疫照顧假','疫苗接種假'],
-  '病假': ['普通傷病假','疫苗接種假','生理假'],
-  '事假': ['普通事假','防疫隔離假','防疫照顧假','家庭照顧假'],
-  '其他假': ['婚假','喪假','產假','產檢假','陪產檢及陪產假','公假','公傷病假_普通傷病假','公傷病假_因公確診','出差']
-};
-
-let currentUser = null;
-let currentLeaveId = null;
-let currentReviewSource = '';
-let calYear = new Date().getFullYear();
-let calMonth = new Date().getMonth();
-let allUnitLeaves = [];
-let allGmLeaves = [];
-let allHrLeaves = [];
-
-async function hashPw(pw) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+// ── PAGE NAV ──
+function showPage(p) {
+  document.getElementById('page-itinerary').classList.toggle('active', p==='itinerary');
+  document.getElementById('page-ledger').classList.toggle('active', p==='ledger');
+  document.getElementById('page-info').classList.toggle('active', p==='info');
+  document.getElementById('tabs-wrapper').style.display = p==='itinerary' ? '' : 'none';
+  ['itinerary','ledger','info'].forEach(n => document.getElementById('bnav-'+n).classList.toggle('active', n===p));
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function doLogin() {
-  var empno = document.getElementById('login-empno').value.trim();
-  // 6碼自動補0變7碼
-  if (empno.length === 6) empno = '0' + empno;
-  const pw = document.getElementById('login-pw').value;
-  const errEl = document.getElementById('login-error');
-  errEl.style.display = 'none';
-  if (!empno || !pw) { errEl.textContent='請填寫員工編號與密碼'; errEl.style.display='block'; return; }
-  const { data, error } = await sb.from('employees').select('*').eq('emp_no', empno).single();
-  if (error || !data) { errEl.textContent='找不到此員工編號'; errEl.style.display='block'; return; }
-  if (data.is_active === false) { errEl.textContent='此帳號已停用，請聯絡人事部門'; errEl.style.display='block'; return; }
-  const hash = await hashPw(pw);
-  const checkPw = data.pw_hash || localStorage.getItem('pw_' + empno) || await hashPw(empno);
-  if (hash !== checkPw) { errEl.textContent='密碼錯誤'; errEl.style.display='block'; return; }
-  currentUser = data;
-  document.getElementById('topbar-name').textContent = data.name;
-  document.getElementById('topbar-unit').textContent = data.unit_name;
-  document.getElementById('topbar-avatar').textContent = (data.name || '？').charAt(0);
-  document.getElementById('set-name').textContent = data.name;
-  document.getElementById('set-empno').textContent = data.emp_no;
-  document.getElementById('set-unit').textContent = data.unit_name;
-  document.getElementById('set-title').textContent = data.title;
-  document.getElementById('page-login').style.display = 'none';
-  document.getElementById('page-app').style.display = 'block';
-  initApp();
+// ── DAY TABS ──
+function showDay(idx) {
+  document.querySelectorAll('.day-section').forEach((el,i) => el.classList.toggle('active', i===idx));
+  document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('active', i===idx));
+  document.querySelectorAll('.tab')[idx].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function doChangePw() {
-  const pw1 = document.getElementById('new-pw1').value;
-  const pw2 = document.getElementById('new-pw2').value;
-  const err = document.getElementById('changepw-error');
-  err.style.display = 'none';
-  if (pw1.length < 6) { err.textContent='密碼至少6位'; err.style.display='block'; return; }
-  if (pw1 !== pw2) { err.textContent='兩次密碼不一致'; err.style.display='block'; return; }
-  const newHash = await hashPw(pw1);
-  const { error } = await sb.from('employees').update({ pw_hash: newHash }).eq('emp_no', currentUser.emp_no);
-  if (error) { err.textContent='密碼更新失敗：'+error.message; err.style.display='block'; return; }
-  currentUser.pw_hash = newHash;
-  localStorage.removeItem('pw_' + currentUser.emp_no);
-  document.getElementById('page-changepw').classList.remove('show');
-  initApp();
-}
-
-function doLogout() {
-  currentUser = null;
-  document.getElementById('page-app').style.display = 'none';
-  document.getElementById('page-login').style.display = 'flex';
-  document.getElementById('login-empno').value = '';
-  document.getElementById('login-pw').value = '';
-}
-
-function initApp() {
-  buildNav();
-  updateSubtype();
-  loadEmpHome();
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById('apply-start-date').value = today;
-  document.getElementById('apply-end-date').value = today;
-}
-
-function buildNav() {
-  const nav = document.getElementById('bottom-nav');
-  const u = currentUser;
-  let btns = `
-    <button class="bnav active" id="bnav-emp-home" onclick="showPage('emp-home',this)"><span class="bnav-icon">🏠</span>我的假期</button>
-    <button class="bnav" id="bnav-emp-apply" onclick="showPage('emp-apply',this)"><span class="bnav-icon">📝</span>申請假單</button>
-    <button class="bnav" id="bnav-mgr-calendar" onclick="showPage('mgr-calendar',this);loadCalendar()"><span class="bnav-icon">📅</span>行事曆</button>`;
-  if (u.is_manager || u.is_sub_manager) {
-    btns += `
-    <button class="bnav" id="bnav-mgr-review" onclick="showPage('mgr-review',this);loadMgrReview()"><span class="bnav-icon">✅</span>審核</button>`;
-  }
-  if (u.is_gm) {
-    btns += `
-    <button class="bnav" id="bnav-gm-review" onclick="showPage('gm-review',this);loadGmReview()"><span class="bnav-icon">👔</span>主管審核</button>`;
-  }
-  if (u.emp_no === CHAIRMAN_EMP_NO) {
-    btns += `
-    <button class="bnav" id="bnav-chairman-review" onclick="showPage('chairman-review',this);loadChairmanReview()"><span class="bnav-icon">🏛️</span>審核</button>`;
-  }
-  if (u.is_hr) {
-    btns += `
-    <button class="bnav" id="bnav-hr-all" onclick="showPage('hr-all',this);loadHrAll()"><span class="bnav-icon">👥</span>全員假單</button>
-    <button class="bnav" id="bnav-hr-mgmt" onclick="showPage('hr-mgmt',this);loadHrMgmt()"><span class="bnav-icon">🔧</span>人員管理</button>
-    <button class="bnav" id="bnav-hr-annual" onclick="showPage('hr-annual',this);loadAnnualOverview()"><span class="bnav-icon">📊</span>年假總覽</button>`;
-  }
-  btns += `
-    <button class="bnav" id="bnav-page-settings" onclick="showPage('page-settings',this)"><span class="bnav-icon">⚙️</span>設定</button>`;
-  nav.innerHTML = btns;
-}
-
-function showPage(id, btn) {
-  document.querySelectorAll('.page').forEach(function(p) {
-    p.classList.remove('active');
-    p.style.display = 'none';
-  });
-  var el = document.getElementById(id);
-  el.classList.add('active');
-  el.style.display = (id === 'hr-all' || id === 'hr-mgmt') ? 'flex' : 'block';
-  document.querySelectorAll('.bnav').forEach(function(b) { b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  if (id !== 'hr-all' && id !== 'hr-mgmt') window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// ── 判斷假單應送誰審核 ──
-// 主管和理事主席 → 總經理審核
-// 其他員工 → 所屬單位主管審核
-// 直接對理事主席的人員：總經理蔡景偉 + 副總/總稽核邱煥宸
-const DIRECT_TO_CHAIRMAN = ['0891009']; // 直送理事主席的副總（總稽核邱煥宸）
-const DIRECT_TO_GM = ['1001001']; // 直送總經理（法遵主管許庭豪）
-
-// 半天判斷：回傳 '上午' / '下午' / ''（整天）
-// 半天標示：單日回「上午/下午」；多天回「6/26 下午起」或「至 7/1 上午」
-function halfPeriodDetail(startDate, endDate, days, startTime, endTime) {
-  if (((Number(days)||0) * 2) % 2 === 0) return '';      // 整數天，非半天
-  var sh = parseInt(String(startTime||'').split(':')[0], 10);
-  var eh = parseInt(String(endTime||'').split(':')[0], 10);
-  function md(ds){ var p = String(ds).split('-'); return parseInt(p[1],10) + '/' + parseInt(p[2],10); }
-  var single = startDate === endDate;
-  if (!isNaN(sh) && sh >= 12) return single ? '下午' : (md(startDate) + ' 下午起');  // 下午才開始
-  if (!isNaN(eh) && eh <= 13) return single ? '上午' : ('至 ' + md(endDate) + ' 上午'); // 中午前就結束
-  return '';
-}
-function daysText(r) {
-  var p = halfPeriodDetail(r.start_date, r.end_date, r.days, r.start_time, r.end_time);
-  return r.days + ' 天' + (p ? '（' + p + '）' : '');
-}
-
-function getReviewerType(emp) {
-  // 理事主席不需送審
-  if (emp.emp_no === CHAIRMAN_EMP_NO) return 'chairman';
-  // 總經理（蔡景偉）→ 直接送理事主席
-  if (emp.emp_no === GM_EMP_NO) return 'chairman';
-  // 總稽核邱煥宸 → 直接送理事主席
-  if (DIRECT_TO_CHAIRMAN.includes(emp.emp_no)) return 'chairman';
-  // 法遵主管許庭豪 → 直接送總經理
-  if (DIRECT_TO_GM.includes(emp.emp_no)) return 'gm';
-  // 其他副總（張君明、高稵婕）→ 送總經理審核
-  if (emp.is_gm) return 'gm';
-  // 分社正主管 → 總經理審核
-  if (emp.is_manager && emp.unit_id && !/^7(-|$)/.test(emp.unit_id)) return 'gm';
-  // 分社副主管 → 送所屬分社正主管（與一般同仁同走 unit）
-  if (emp.is_sub_manager && emp.unit_id && !/^7(-|$)/.test(emp.unit_id)) return 'unit';
-  // 管理部所有人（unit_id 開頭是7）→ 直屬長官審核
-  if (emp.unit_id && /^7(-|$)/.test(emp.unit_id)) return 'mgmt';
-  return 'unit';
-}
-
-// ── LINE 通知 ──
-async function sendLineNotify(lineUserId, message) {
-  if (!lineUserId) return;
+// ── WEATHER (Open-Meteo, 免費無需 API key) ──
+async function fetchWeather() {
+  const bar = document.getElementById('weather-bar');
   try {
-    await fetch('https://nloegbeggwyprtqickqs.supabase.co/functions/v1/line-notify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ line_user_id: lineUserId, message: message }),
-    });
-  } catch(e) { console.log('LINE notify error', e); }
-}
-
-async function notifyManager(emp, leaveInfo) {
-  var reviewerType = getReviewerType(emp);
-  if (reviewerType === 'mgmt' && emp.supervisor_emp_no) {
-    var res = await sb.from('employees').select('line_user_id').eq('emp_no', emp.supervisor_emp_no).single();
-    if (res.data && res.data.line_user_id) await sendLineNotify(res.data.line_user_id, leaveInfo);
-  } else if (reviewerType === 'unit') {
-    // 通知主管 + 副主管
-    var res = await sb.from('employees').select('emp_no,line_user_id')
-      .eq('unit_id', emp.unit_id)
-      .or('is_manager.eq.true,is_sub_manager.eq.true');
-    if (res.data) {
-      for (var m of res.data) {
-        if (m.emp_no === emp.emp_no) continue; // 不通知申請人自己
-        if (m.line_user_id) await sendLineNotify(m.line_user_id, leaveInfo);
-      }
-    }
-  } else if (reviewerType === 'gm') {
-    var res = await sb.from('employees').select('line_user_id').eq('emp_no', GM_EMP_NO).single();
-    if (res.data && res.data.line_user_id) await sendLineNotify(res.data.line_user_id, leaveInfo);
-  } else if (reviewerType === 'chairman') {
-    var res = await sb.from('employees').select('line_user_id').eq('emp_no', CHAIRMAN_EMP_NO).single();
-    if (res.data && res.data.line_user_id) await sendLineNotify(res.data.line_user_id, leaveInfo);
-  }
-}
-
-async function notifyEmployee(empNo, message) {
-  var res = await sb.from('employees').select('line_user_id').eq('emp_no', empNo).single();
-  if (res.data && res.data.line_user_id) {
-    await sendLineNotify(res.data.line_user_id, message);
-  }
-}
-
-async function notifyGM(message) {
-  var res = await sb.from('employees').select('line_user_id').eq('emp_no', GM_EMP_NO).single();
-  if (res.data && res.data.line_user_id) await sendLineNotify(res.data.line_user_id, message);
-}
-
-async function notifyChairman(message) {
-  var res = await sb.from('employees').select('line_user_id').eq('emp_no', CHAIRMAN_EMP_NO).single();
-  if (res.data && res.data.line_user_id) await sendLineNotify(res.data.line_user_id, message);
-}
-
-var myLeaveData = [];
-
-async function loadEmpHome() {
-  var emp = currentUser;
-  var res = await sb.from('leave_requests').select('*').eq('emp_no', emp.emp_no).order('start_date',{ascending:false});
-  myLeaveData = res.data || [];
-  // 即時從已核准假單加總已使用特休天數（不依賴 used_leave_days 欄位）
-  var usedDays = myLeaveData
-    .filter(function(r){ return r.status === 'approved' && r.leave_type === '休假'; })
-    .reduce(function(sum, r){ return sum + (r.days||0); }, 0);
-  var remain = (emp.annual_leave_days||0) - usedDays;
-  document.getElementById('emp-remain').textContent = remain.toFixed(1);
-  document.getElementById('emp-used').textContent = usedDays.toFixed(1);
-  filterEmpLeaves();
-}
-
-function filterEmpLeaves() {
-  var type = document.getElementById('emp-filter-type') ? document.getElementById('emp-filter-type').value : '';
-  var status = document.getElementById('emp-filter-status') ? document.getElementById('emp-filter-status').value : '';
-  var filtered = myLeaveData;
-  if (type) filtered = filtered.filter(function(r){ return r.leave_type === type; });
-  if (status === 'unconfirmed') {
-    filtered = filtered.filter(function(r){ return !r.paper_confirmed && r.status === 'approved'; });
-  } else if (status) {
-    filtered = filtered.filter(function(r){ return r.status === status; });
-  }
-  var list = document.getElementById('emp-leave-list');
-  if (!filtered.length) { list.innerHTML='<div class="empty-hint">沒有符合的假單</div>'; return; }
-  list.innerHTML = filtered.map(function(r){ return leaveItemHtml(r,false,false,false); }).join('');
-}
-
-function leaveItemHtml(r, isMgr, isGm, isHr) {
-  var statusMap = { pending:'待審核', approved:'已核准', rejected:'已拒絕' };
-  var badgeMap = { pending:'badge-pending', approved:'badge-approved', rejected:'badge-rejected' };
-  var namePrefix = '';
-  if (isHr) namePrefix = '[' + r.unit_name + '] ' + r.emp_name + ' · ';
-  else if (isGm || isMgr) namePrefix = r.emp_name + ' · ';
-  var canReview = (isMgr || isGm || isHr) && r.status === 'pending' && (!currentUser || r.emp_no !== currentUser.emp_no);
-  var src = (isGm && currentUser && currentUser.emp_no === CHAIRMAN_EMP_NO) ? 'chairman' : isGm ? 'gm' : (isHr ? 'hr' : 'unit');
-  var reviewBtn = canReview ? "<button class=\"btn-sm btn-approve\" onclick=\"openReview('" + r.id + "','" + src + "')\" >審核</button>" : '';
-  var deleteBtn = (isHr && adminMode) ? "<button class=\"btn-sm\" style=\"background:#f8d7da;color:#842029;margin-left:.4rem;\" onclick=\"deleteLeave('" + r.id + "')\">🗑 刪除</button>" : '';
-  var actionBtns = reviewBtn + deleteBtn;
-  // 左邊框顏色：自己的假單依假別上色，審核中的假單用狀態色
-  var borderColor = '';
-  if (!isMgr && !isGm && !isHr) {
-    borderColor = getLeaveColor(r.leave_type);
-  }
-  var itemStyle = borderColor ? 'border-left-color:'+borderColor+';' : '';
-  // 流程標示
-  var flowLabel = '';
-  if (r.reviewer_type === 'gm') {
-    // 一般員工假單：由單位主管核准後轉給總經理
-    if (r.mgr_approved_by) {
-      flowLabel = '已由 ' + r.mgr_approved_by + ' 核准 → 總經理審核';
-    } else if (r.reviewed_by) {
-      flowLabel = '已由 ' + r.reviewed_by + ' 核准 → 總經理審核';
-    } else {
-      flowLabel = '直送總經理審核';
-    }
-  }
-  // reviewer_type='chairman' 的假單是直接對理事主席，不顯示流程標示
-  var flowHtml = flowLabel ? '<div style="font-size:11px;color:#888;margin-top:3px;">📋 ' + flowLabel + '</div>' : '';
-
-  // 人事專用：請假編號 + 紙本確認打勾
-  var hrTopBar = '';
-  if (isHr) {
-    var docNo = r.doc_no || '—';
-    var checked = r.paper_confirmed ? 'checked' : '';
-    hrTopBar = '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
-      '<span style="font-size:12px;color:#555;background:#f0f4f8;padding:2px 8px;border-radius:4px;font-weight:600;">編號：' + docNo + '</span>' +
-      '<label style="display:flex;align-items:center;gap:4px;font-size:12px;color:#555;cursor:pointer;">' +
-        '<input type="checkbox" ' + checked + ' onchange="togglePaperConfirm(\'' + r.id + '\',this.checked)" style="width:16px;height:16px;cursor:pointer;">' +
-        '紙本已收' +
-      '</label>' +
-    '</div>';
-  }
-
-  return '<div class="leave-item ' + r.status + '" style="'+itemStyle+'">' +
-    hrTopBar +
-    '<div class="leave-header">' +
-      '<div class="leave-name">' + namePrefix + r.leave_type + ' — ' + r.leave_subtype + '</div>' +
-      '<span class="leave-badge ' + (badgeMap[r.status]||'') + '">' + (statusMap[r.status]||r.status) + '</span>' +
-    '</div>' +
-    '<div class="leave-meta">' +
-      r.start_date + ' ～ ' + r.end_date + '（' + daysText(r) + '）<br>' +
-      '事由：' + (r.reason||'—') + '<br>' +
-      '代理人：' + (r.proxy_name||'—') + (r.proxy_duty ? '（' + r.proxy_duty + '）' : '') +
-      (r.status==='rejected' && r.reject_reason ? '<br>拒絕原因：' + r.reject_reason : '') +
-    '</div>' +
-    flowHtml +
-    (actionBtns ? '<div class="leave-actions">' + actionBtns + '</div>' : '') +
-  '</div>';
-}
-
-
-async function togglePaperConfirm(id, checked) {
-  await sb.from('leave_requests').update({ paper_confirmed: checked }).eq('id', id);
-}
-
-var proxyData = {}; // 存代理人資料 {emp_no, unit_name, title}
-
-function searchProxy(val) {
-  var sug = document.getElementById('proxy-suggestions');
-  var info = document.getElementById('proxy-info');
-  proxyData = {};
-  if (!val || val.length < 1) { sug.style.display='none'; info.style.display='none'; return; }
-  // 從 employees 搜尋符合名字的人（排除自己）
-  sb.from('employees').select('emp_no,name,unit_name,title')
-    .ilike('name', '%'+val+'%')
-    .neq('emp_no', currentUser.emp_no)
-    .eq('is_active', true)
-    .limit(8)
-    .then(function(res) {
-      var matches = res.data || [];
-      if (!matches.length) { sug.style.display='none'; return; }
-      sug.innerHTML = matches.map(function(e) {
-        return '<div onclick="selectProxy(\'' + e.emp_no + '\',\'' + e.name + '\',\'' + e.unit_name + '\',\'' + (e.title||'') + '\')"; style="padding:8px 12px;cursor:pointer;font-size:13px;border-bottom:1px solid #f0f0f0;" onmouseover="this.style.background=\'#f5f5f5\'" onmouseout="this.style.background=\'\'">' +
-          '<b>' + e.name + '</b> <span style="color:var(--muted);font-size:11px;">' + e.unit_name + ' · ' + (e.title||'') + '</span>' +
-        '</div>';
-      }).join('');
-      sug.style.display = 'block';
-    });
-}
-
-function selectProxy(empNo, name, unitName, title) {
-  document.getElementById('apply-proxy-name').value = name;
-  document.getElementById('proxy-suggestions').style.display = 'none';
-  proxyData = { emp_no: empNo, unit_name: unitName, title: title };
-  var info = document.getElementById('proxy-info');
-  info.textContent = '✅ ' + unitName + ' · ' + title;
-  info.style.display = 'block';
-}
-
-// 點別處關閉下拉
-document.addEventListener('click', function(e) {
-  if (!e.target.closest || !e.target.closest('#apply-proxy-name, #proxy-suggestions')) {
-    var sug = document.getElementById('proxy-suggestions');
-    if (sug) sug.style.display = 'none';
-  }
-});
-
-function updateSubtype() {
-  const type = document.getElementById('apply-type').value;
-  const sub = document.getElementById('apply-subtype');
-  sub.innerHTML = LEAVE_TYPES[type].map(s=>`<option value="${s}">${s}</option>`).join('');
-}
-
-function confirmLeave() {
-  const errEl = document.getElementById('apply-error');
-  errEl.style.display = 'none';
-  const type = document.getElementById('apply-type').value;
-  const subtype = document.getElementById('apply-subtype').value;
-  const startDate = document.getElementById('apply-start-date').value;
-  const endDate = document.getElementById('apply-end-date').value;
-  const startTime = document.getElementById('apply-start-time').value;
-  const endTime = document.getElementById('apply-end-time').value;
-  const days = parseFloat(document.getElementById('apply-days').value);
-  const reason = document.getElementById('apply-reason').value.trim();
-  const proxyName = document.getElementById('apply-proxy-name').value.trim();
-  const proxyDuty = document.getElementById('apply-proxy-duty').value.trim();
-  if (!startDate||!endDate||isNaN(days)||days<=0||!reason||!proxyName||!proxyDuty) {
-    errEl.textContent='請填寫所有必要欄位（含代理人姓名與擔任事務）';
-    errEl.style.display='block'; return;
-  }
-  // 硬擋假日：起訖日不可為週末/國定假日，且區間至少要有一個工作日
-  var _sLbl = holidayLabel(startDate);
-  if (_sLbl) { errEl.textContent='開始日期 '+startDate.replace(/-/g,'/')+' 是「'+_sLbl+'」，當天放假不能請假'; errEl.style.display='block'; return; }
-  var _eLbl = holidayLabel(endDate);
-  if (_eLbl) { errEl.textContent='結束日期 '+endDate.replace(/-/g,'/')+' 是「'+_eLbl+'」，當天放假不能請假'; errEl.style.display='block'; return; }
-  var _wd = 0;
-  for (var _dt=new Date(startDate+'T00:00:00'); _dt<=new Date(endDate+'T00:00:00'); _dt.setDate(_dt.getDate()+1)) { if (isWorkday(_dt)) _wd++; }
-  if (_wd === 0) { errEl.textContent='所選日期都是假日，無需請假'; errEl.style.display='block'; return; }
-  const timeLabel = days <= 0.5
-    ? startDate + ' ' + startTime + '～' + endTime
-    : startDate + ' ～ ' + endDate;
-  document.getElementById('confirm-content').innerHTML =
-    '<b>假別：</b>' + type + '　' + subtype + '<br>' +
-    '<b>時間：</b>' + timeLabel + '<br>' +
-    '<b>天數：</b>' + days + ' 天<br>' +
-    '<b>事由：</b>' + reason + '<br>' +
-    '<b>代理人：</b>' + proxyName + '（' + proxyDuty + '）';
-  document.getElementById('confirm-modal').style.display = 'flex';
-}
-
-async function doSubmitLeave() {
-  document.getElementById('confirm-modal').style.display = 'none';
-  const emp = currentUser;
-  const type = document.getElementById('apply-type').value;
-  const subtype = document.getElementById('apply-subtype').value;
-  const startDate = document.getElementById('apply-start-date').value;
-  const endDate = document.getElementById('apply-end-date').value;
-  const startTime = document.getElementById('apply-start-time').value;
-  const endTime = document.getElementById('apply-end-time').value;
-  const days = parseFloat(document.getElementById('apply-days').value);
-  const reason = document.getElementById('apply-reason').value.trim();
-  const proxyName = document.getElementById('apply-proxy-name').value.trim();
-  const proxyDuty = document.getElementById('apply-proxy-duty').value.trim();
-  const errEl = document.getElementById('apply-error');
-  // 二次防線：擋假日（避免繞過 confirmLeave）
-  if (holidayLabel(startDate) || holidayLabel(endDate)) {
-    errEl.textContent='起訖日不可為假日，請改選工作日'; errEl.style.display='block'; return;
-  }
-  const reviewerType = getReviewerType(emp);
-  const insertData = {
-    emp_no:emp.emp_no, emp_name:emp.name, unit_id:emp.unit_id, unit_name:emp.unit_name,
-    leave_type:type, leave_subtype:subtype, start_date:startDate, end_date:endDate,
-    start_time:startTime, end_time:endTime, days, reason,
-    proxy_name:proxyName, proxy_duty:proxyDuty,
-    proxy_emp_no:proxyData.emp_no||null,
-    proxy_unit:proxyData.unit_name||null,
-    proxy_title:proxyData.title||null,
-    status:'pending', reviewer_type:reviewerType
-  };
-  // 管理部假單：附上直屬長官員工編號
-  if (reviewerType === 'mgmt' && emp.supervisor_emp_no) {
-    insertData.reviewer_emp_no = emp.supervisor_emp_no;
-  }
-  const { error } = await sb.from('leave_requests').insert(insertData);
-  if (error) { errEl.textContent='送出失敗：'+error.message; errEl.style.display='block'; return; }
-  // LINE 通知主管
-  var _p = halfPeriodDetail(startDate, endDate, days, startTime, endTime);
-  var leaveMsg = '[請假通知] ' + emp.name + ' 申請 ' + type + subtype + '\n' +
-    '期間：' + startDate + (days > 0.5 ? ' ~ ' + endDate : '') + '\n' +
-    '天數：' + days + ' 天' + (_p ? '（' + _p + '）' : '') + '\n' +
-    '事由：' + reason;
-  await notifyManager(emp, leaveMsg);
-  alert('✅ 假單已送出，等待審核');
-  ['apply-reason','apply-days','apply-proxy-name','apply-proxy-duty'].forEach(id=>document.getElementById(id).value='');
-  proxyData = {};
-  var pi = document.getElementById('proxy-info'); if(pi) { pi.textContent=''; pi.style.display='none'; }
-  showPage('emp-home', document.getElementById('bnav-emp-home'));
-  loadEmpHome();
-}
-
-// ── 主管審核 ──
-// 管理部主管：reviewer_emp_no = 自己；分社主管：unit_id + reviewer_type=unit
-async function loadMgrReview() {
-  var isMgmtMgr = currentUser.unit_id && /^7(-|$)/.test(currentUser.unit_id) && !DIRECT_TO_CHAIRMAN.includes(currentUser.emp_no);
-  var query;
-  if (isMgmtMgr) {
-    query = sb.from('leave_requests').select('*')
-      .eq('reviewer_emp_no', currentUser.emp_no)
-      .eq('reviewer_type', 'mgmt')
-      .order('created_at',{ascending:false});
-  } else {
-    query = sb.from('leave_requests').select('*')
-      .eq('unit_id', currentUser.unit_id)
-      .eq('reviewer_type', 'unit')
-      .neq('emp_no', currentUser.emp_no)
-      .order('created_at',{ascending:false});
-  }
-  const { data } = await query;
-  allUnitLeaves = data || [];
-  const pending = allUnitLeaves.filter(r=>r.status==='pending');
-  const done = allUnitLeaves.filter(r=>r.status!=='pending');
-  document.getElementById('mgr-pending-list').innerHTML = pending.length
-    ? pending.map(r=>leaveItemHtml(r,true,false,false)).join('')
-    : '<div class="empty-hint">目前沒有待審假單 🎉</div>';
-  document.getElementById('mgr-done-list').innerHTML = done.length
-    ? done.map(r=>leaveItemHtml(r,true,false,false)).join('')
-    : '<div class="empty-hint">尚無已審假單</div>';
-}
-
-// ── 副總/總經理審核 ──
-// 副總經理：看直屬科主管（reviewer_emp_no = 自己，type=mgmt）
-// 總經理：看分社主管（reviewer_type=gm）
-async function loadGmReview() {
-  var isGM = currentUser.emp_no === GM_EMP_NO; // 總經理蔡景偉 General Manager
-  var isGeneralAuditor = DIRECT_TO_CHAIRMAN.includes(currentUser.emp_no); // 總稽核邱煥宸 General Auditor
-  var query;
-  if (isGM) {
-    // 總經理：看全部 reviewer_type = gm 的假單
-    query = sb.from('leave_requests').select('*')
-      .eq('reviewer_type', 'gm')
-      .order('created_at',{ascending:false});
-  } else if (isGeneralAuditor) {
-    // 總稽核邱煥宸：只看 reviewer_emp_no = 自己 的假單
-    query = sb.from('leave_requests').select('*')
-      .eq('reviewer_emp_no', currentUser.emp_no)
-      .eq('reviewer_type', 'mgmt')
-      .order('created_at',{ascending:false});
-  } else {
-    // 其他副總：只看 reviewer_emp_no = 自己 的假單
-    query = sb.from('leave_requests').select('*')
-      .eq('reviewer_emp_no', currentUser.emp_no)
-      .eq('reviewer_type', 'mgmt')
-      .order('created_at',{ascending:false});
-  }
-  const { data } = await query;
-  allGmLeaves = data || [];
-  const pending = allGmLeaves.filter(r=>r.status==='pending');
-  const done = allGmLeaves.filter(r=>r.status!=='pending');
-  document.getElementById('gm-approve-all-bar').style.display = pending.length ? 'block' : 'none';
-  document.getElementById('gm-pending-list').innerHTML = pending.length
-    ? pending.map(r=>leaveItemHtml(r,false,true,false)).join('')
-    : '<div class="empty-hint">目前沒有待審假單 🎉</div>';
-  document.getElementById('gm-done-list').innerHTML = done.length
-    ? done.map(r=>leaveItemHtml(r,false,true,false)).join('')
-    : '<div class="empty-hint">尚無已審假單</div>';
-}
-
-// ── 理事主席審核（總經理/副總）──
-async function loadChairmanReview() {
-  const { data } = await sb.from('leave_requests').select('*')
-    .eq('reviewer_type', 'chairman')
-    .order('created_at',{ascending:false});
-  allGmLeaves = data || [];
-  const pending = allGmLeaves.filter(r=>r.status==='pending');
-  const done = allGmLeaves.filter(r=>r.status!=='pending');
-  document.getElementById('chairman-approve-all-bar').style.display = pending.length ? 'block' : 'none';
-  document.getElementById('chairman-pending-list').innerHTML = pending.length
-    ? pending.map(r=>leaveItemHtml(r,false,true,false)).join('')
-    : '<div class="empty-hint">目前沒有待審假單 🎉</div>';
-  document.getElementById('chairman-done-list').innerHTML = done.length
-    ? done.map(r=>leaveItemHtml(r,false,true,false)).join('')
-    : '<div class="empty-hint">尚無已審假單</div>';
-}
-
-// ── 人事：全員假單 ──
-var empCache = {}; // emp_no -> {title, duty}
-var empProxyCache = {}; // name -> {emp_no, unit_name, title}
-var allHrEmps = []; // 目前在職員工名單（用於人員篩選下拉選單，反映「現在」單位，而非假單快照上的單位）
-
-async function loadHrAll() {
-  var result = await sb.from('leave_requests').select('*').order('created_at',{ascending:false});
-  allHrLeaves = result.data || [];
-  // 載入員工資料快取（補 F、G、Q、R、S 欄用）
-  var empRes = await sb.from('employees').select('emp_no,name,unit_name,title,duty,is_active');
-  allHrEmps = (empRes.data||[]).filter(function(e){ return e.is_active !== false; });
-  (empRes.data||[]).forEach(function(e){
-    empCache[e.emp_no] = {title: e.title||'', duty: e.duty||''};
-    empProxyCache[e.name] = {emp_no: e.emp_no, unit_name: e.unit_name||'', title: e.title||''};
-  });
-  var FIXED_UNITS = [["7","管理部"], ["16","營業部"], ["25","水碓分社"], ["34","竹圍分社"], ["43","英專分社"], ["52","義山分社"], ["61","三芝分社"], ["70","八里分社"], ["89","成州分社"], ["98","五股分社"], ["104","萬金分社"], ["113","新莊分社"], ["122","泰山分社"], ["131","林口分社"], ["140","板橋分社"], ["159","蘆洲分社"], ["168","三重分社"]];
-  var unitSel = document.getElementById('hr-filter-unit');
-  unitSel.innerHTML = '<option value="">所有單位</option>' + FIXED_UNITS.map(function(u){ return '<option value="'+u[1]+'">'+u[1]+'</option>'; }).join('');
-  document.getElementById('hr-filter-emp').innerHTML = '<option value="">所有人員</option>';
-  filterHrLeaves();
-}
-
-function updateEmpFilter() {
-  var unit = document.getElementById('hr-filter-unit').value;
-  var empSel = document.getElementById('hr-filter-emp');
-  var emps = [];
-  // 改用「目前在職員工的現在單位」產生人員清單，而非掃描歷史假單快照，
-  // 避免調職後舊單位仍殘留該員工、新單位卻看不到人的問題
-  allHrEmps.forEach(function(e) {
-    if ((!unit || e.unit_name === unit) && e.name && emps.indexOf(e.name) < 0) emps.push(e.name);
-  });
-  emps.sort(function(a,b){ return a.localeCompare(b, 'zh-TW'); });
-  empSel.innerHTML = '<option value="">所有人員</option>' + emps.map(function(e){ return '<option value="' + e + '">' + e + '</option>'; }).join('');
-  filterHrLeaves();
-}
-
-function filterHrLeaves() {
-  var unit = document.getElementById('hr-filter-unit').value;
-  var emp = document.getElementById('hr-filter-emp').value;
-  var status = document.getElementById('hr-filter-status').value;
-  var leaveType = document.getElementById('hr-filter-leave-type').value;
-  var filtered = allHrLeaves;
-  if (unit) filtered = filtered.filter(function(r){ return r.unit_name === unit; });
-  if (emp) filtered = filtered.filter(function(r){ return r.emp_name === emp; });
-  filtered = filtered.slice().sort(function(a,b){ return (parseInt(b.doc_no)||0)-(parseInt(a.doc_no)||0); });
-  if (status === 'unconfirmed') {
-    filtered = filtered.filter(function(r){ return !r.paper_confirmed && r.status === 'approved'; });
-  } else if (status) {
-    filtered = filtered.filter(function(r){ return r.status === status; });
-  }
-  if (leaveType) filtered = filtered.filter(function(r){ return r.leave_type === leaveType; });
-  var countEl = document.getElementById('hr-count');
-  if (countEl) countEl.textContent = '共 ' + filtered.length + ' 筆';
-  var list = document.getElementById('hr-leave-list');
-  if (!filtered.length) { list.innerHTML = '<div class="empty-hint">沒有符合的假單</div>'; return; }
-  list.innerHTML = filtered.map(function(r){ return leaveItemHtml(r,false,false,true); }).join('');
-}
-
-function openReview(id, src) {
-  currentLeaveId = id;
-  currentReviewSource = src;
-  const pool = (src==='gm'||src==='chairman') ? allGmLeaves : src==='hr' ? allHrLeaves : allUnitLeaves;
-  const r = pool.find(x=>x.id===id);
-  if (!r) return;
-  document.getElementById('modal-review-title').textContent = `審核：${r.emp_name} 的假單`;
-  document.getElementById('modal-review-body').innerHTML =
-    `單位：${r.unit_name}<br>假別：${r.leave_type} — ${r.leave_subtype}<br>
-     日期：${r.start_date} ～ ${r.end_date}（${r.days} 天）<br>
-     時間：${r.start_time||'—'} ～ ${r.end_time||'—'}<br>
-     事由：${r.reason||'—'}<br>
-     代理人：${r.proxy_name||'—'}${r.proxy_duty?'（'+r.proxy_duty+'）':''}`;
-  document.getElementById('modal-reject-reason').value = '';
-  document.getElementById('modal-review').classList.add('show');
-}
-
-function closeModal() {
-  document.getElementById('modal-review').classList.remove('show');
-  currentLeaveId = null;
-}
-
-async function approveAllLeaves(src) {
-  const pool = (src==='gm'||src==='chairman') ? allGmLeaves : allUnitLeaves;
-  const pending = pool.filter(r=>r.status==='pending');
-  if (!pending.length) return;
-  if (!confirm('確定要一鍵核准所有 ' + pending.length + ' 筆待審假單？')) return;
-  var isUnitSrc = src !== 'gm' && src !== 'chairman' && src !== 'hr';
-  for (const r of pending) {
-    var needsGM = (r.days||0) >= 3 && isUnitSrc;
-    if (needsGM) {
-      await sb.from('leave_requests').update({
-        status: 'pending', reviewer_type: 'gm',
-        mgr_approved_by: currentUser.name, reviewed_by: null, reviewed_at: null
-      }).eq('id', r.id);
-      var gmMsg = '[請假待審] ' + r.emp_name + ' 申請 ' + r.leave_type + (r.leave_subtype||'') + '\n' +
-        '期間：' + r.start_date + ' ~ ' + r.end_date + '\n' +
-        '天數：' + r.days + ' 天（已獲主管 ' + currentUser.name + ' 核准，請您審核）';
-      await notifyGM(gmMsg);
-    } else {
-      await sb.from('leave_requests').update({
-        status:'approved', reviewed_by:currentUser.name, reviewed_at:new Date().toISOString()
-      }).eq('id', r.id);
-      await notifyEmployee(r.emp_no, '[請假結果] 您的假單已核准 ✅\n' +
-        r.leave_type + (r.leave_subtype||'') + ' ' + r.start_date + ' ~ ' + r.end_date + '\n' + daysText(r));
-    }
-  }
-  if (src==='gm') loadGmReview();
-  else if (src==='chairman') loadChairmanReview();
-  else loadMgrReview();
-  alert('✅ 已處理 ' + pending.length + ' 筆假單');
-}
-
-const UNIT_ORDER = ['7','7-01','7-02','7-03','7-04','7-05','7-06','7-07','7-08','7-09','7-10','7-11','7-12','16','25','34','43','52','61','70','89','98','104','113','122','131','140','159','168'];
-
-var _annualEmps = [];
-var _annualUsedMap = {};
-
-async function loadAnnualOverview() {
-  document.getElementById('annual-list').innerHTML = '載入中...';
-  const empRes = await sb.from('employees').select('emp_no,name,unit_id,unit_name,annual_leave_days,is_active').eq('is_active', true);
-  _annualEmps = empRes.data || [];
-  const lrRes = await sb.from('leave_requests').select('emp_no,days,leave_type,status').eq('status','approved').eq('leave_type','休假');
-  const leaves = lrRes.data || [];
-  _annualUsedMap = {};
-  leaves.forEach(function(r){ _annualUsedMap[r.emp_no] = (_annualUsedMap[r.emp_no]||0) + (r.days||0); });
-  _annualEmps.sort(function(a,b){
-    var ai = UNIT_ORDER.indexOf(a.unit_id), bi = UNIT_ORDER.indexOf(b.unit_id);
-    if (ai === -1) ai = 99; if (bi === -1) bi = 99;
-    if (ai !== bi) return ai - bi;
-    return a.name.localeCompare(b.name, 'zh-TW');
-  });
-  // 填單位下拉
-  var units = [];
-  _annualEmps.forEach(function(e){ if (e.unit_name && !units.includes(e.unit_name)) units.push(e.unit_name); });
-  var sel = document.getElementById('annual-filter-unit');
-  sel.innerHTML = '<option value="">所有單位</option>' + units.map(function(u){ return '<option value="'+u+'">'+u+'</option>'; }).join('');
-  renderAnnualOverview();
-}
-
-function renderAnnualOverview() {
-  var filterUnit = document.getElementById('annual-filter-unit').value;
-  var emps = filterUnit ? _annualEmps.filter(function(e){ return e.unit_name === filterUnit; }) : _annualEmps;
-
-  // 按單位分組
-  var groups = {};
-  var groupOrder = [];
-  emps.forEach(function(e) {
-    var key = e.unit_name || '其他';
-    if (!groups[key]) { groups[key] = []; groupOrder.push(key); }
-    groups[key].push(e);
-  });
-
-  var html = '';
-  groupOrder.forEach(function(unitName) {
-    var members = groups[unitName];
-    html += '<div style="margin-bottom:0.6rem;background:#fff;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,0.07);overflow:hidden;">';
-    html += '<div style="background:var(--primary);color:#fff;padding:10px 14px;font-weight:700;font-size:14px;">'+unitName+'</div>';
-    html += '<table style="width:100%;border-collapse:collapse;font-size:13px;">';
-    html += '<thead><tr style="background:#f0f4f0;">' +
-      '<th style="padding:6px 10px;text-align:left;color:var(--muted);font-size:14px;width:25%;">姓名</th>' +
-      '<th style="padding:6px 6px;text-align:center;color:var(--muted);font-size:14px;width:25%;">應休</th>' +
-      '<th style="padding:6px 6px;text-align:center;color:var(--muted);font-size:14px;width:25%;">已休</th>' +
-      '<th style="padding:6px 6px;text-align:center;color:var(--muted);font-size:14px;width:25%;">剩餘</th>' +
-      '</tr></thead><tbody>';
-    members.forEach(function(e, i) {
-      var used = _annualUsedMap[e.emp_no] || 0;
-      var total = e.annual_leave_days || 0;
-      var remain = total - used;
-      var bg = i % 2 === 0 ? '' : 'background:#f8faf8;';
-      var remainColor = remain < 0 ? 'color:#e74c3c;font-weight:700;' : remain <= 3 ? 'color:#e67e22;font-weight:600;' : 'color:var(--primary);font-weight:600;';
-      html += '<tr style="'+bg+'">' +
-        '<td style="padding:7px 10px;font-size:14px;">'+e.name+'</td>' +
-        '<td style="padding:7px 6px;text-align:center;font-size:14px;">'+total+'</td>' +
-        '<td style="padding:7px 6px;text-align:center;font-size:14px;">'+used+'</td>' +
-        '<td style="padding:7px 6px;text-align:center;font-size:14px;'+remainColor+'">'+remain+'</td>' +
-        '</tr>';
-    });
-    html += '</tbody></table></div>';
-  });
-  document.getElementById('annual-list').innerHTML = html || '<div class="empty-hint">沒有資料</div>';
-}
-
-async function downloadAnnualExcel() {
-  const empRes = await sb.from('employees').select('emp_no,name,unit_id,unit_name,annual_leave_days,is_active').eq('is_active', true);
-  const emps = empRes.data || [];
-  const lrRes = await sb.from('leave_requests').select('emp_no,days,leave_type,status').eq('status','approved').eq('leave_type','休假');
-  const leaves = lrRes.data || [];
-  var usedMap = {};
-  leaves.forEach(function(r){ usedMap[r.emp_no] = (usedMap[r.emp_no]||0) + (r.days||0); });
-  emps.sort(function(a,b){
-    var ai = UNIT_ORDER.indexOf(a.unit_id), bi = UNIT_ORDER.indexOf(b.unit_id);
-    if (ai === -1) ai = 99; if (bi === -1) bi = 99;
-    if (ai !== bi) return ai - bi;
-    return a.name.localeCompare(b.name, 'zh-TW');
-  });
-  var rows = [['單位','姓名','應休天數','已休天數','剩餘天數']];
-  emps.forEach(function(e) {
-    var used = usedMap[e.emp_no] || 0;
-    var total = e.annual_leave_days || 0;
-    rows.push([e.unit_name, e.name, total, used, total - used]);
-  });
-  var csv = rows.map(function(r){ return r.join(','); }).join('\n');
-  var blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
-  var a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '年假總覽_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-}
-
-const HOLIDAYS = {
-  // 民國115年(2026)
-  '2026-01-01':'元旦','2026-02-16':'除夕','2026-02-17':'春節','2026-02-18':'春節(初二)','2026-02-19':'春節(初三)','2026-02-20':'春節補假',
-  '2026-02-27':'228補假','2026-04-03':'兒童節補假','2026-04-06':'清明節補假','2026-05-01':'勞動節','2026-06-19':'端午節',
-  '2026-09-25':'中秋節','2026-09-28':'教師節','2026-10-09':'國慶日補假','2026-10-26':'光復節補假','2026-12-25':'行憲紀念日',
-  // 民國116年(2027)
-  '2027-01-01':'元旦','2027-02-04':'小年夜','2027-02-05':'除夕','2027-02-08':'春節(初三)','2027-02-09':'春節補假','2027-02-10':'春節補假',
-  '2027-03-01':'228補假','2027-04-05':'清明節','2027-04-06':'兒童節補假','2027-04-30':'勞動節補假','2027-06-09':'端午節',
-  '2027-09-15':'中秋節','2027-09-28':'教師節','2027-10-11':'國慶日補假','2027-10-25':'光復節','2027-12-24':'行憲紀念日補假','2027-12-31':'元旦補假'
-};
-
-function fmtDateYMD(d) {
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-
-function isWorkday(input) {
-  var d = typeof input === 'string' ? new Date(input + 'T00:00:00') : input;
-  var wd = d.getDay();
-  if (wd === 0 || wd === 6) return false;
-  return !HOLIDAYS[fmtDateYMD(d)];
-}
-
-function holidayLabel(ds) {
-  if (HOLIDAYS[ds]) return HOLIDAYS[ds];
-  var wd = new Date(ds + 'T00:00:00').getDay();
-  if (wd === 0) return '星期日';
-  if (wd === 6) return '星期六';
-  return null;
-}
-
-function calcDays() {
-  var s = document.getElementById('apply-start-date').value;
-  var e = document.getElementById('apply-end-date').value;
-  if (!s || !e) return;
-  var checks = [['開始日期', s], ['結束日期', e]];
-  for (var i = 0; i < checks.length; i++) {
-    var lbl = holidayLabel(checks[i][1]);
-    if (lbl) {
-      alert(checks[i][0] + ' ' + checks[i][1].replace(/-/g,'/') + ' 是「' + lbl + '」，當天本來就放假，請改選工作日');
-      document.getElementById('apply-days').value = '';
-      return;
-    }
-  }
-  var start = new Date(s + 'T00:00:00');
-  var end = new Date(e + 'T00:00:00');
-  if (end < start) return;
-  var workdays = [];
-  for (var d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
-    if (isWorkday(d)) workdays.push(fmtDateYMD(d));
-  }
-  if (!workdays.length) { document.getElementById('apply-days').value = ''; return; }
-  var days = workdays.length;
-  var st = document.getElementById('apply-start-time').value || '08:40';
-  var et = document.getElementById('apply-end-time').value || '17:40';
-  if (parseInt(st.split(':')[0],10) >= 12 && workdays[0] === s) days -= 0.5;
-  if (parseInt(et.split(':')[0],10) <= 13 && workdays[workdays.length-1] === e) days -= 0.5;
-  document.getElementById('apply-days').value = Math.max(days, 0);
-}
-
-function syncEndDate() {
-  var startVal = document.getElementById('apply-start-date').value;
-  var endEl = document.getElementById('apply-end-date');
-  if (startVal && (!endEl.value || endEl.value < startVal)) {
-    endEl.value = startVal;
-    calcDays && calcDays();
-  }
-}
-
-async function getNextDocNo() {
-  const { data } = await sb.from('leave_requests')
-    .select('doc_no')
-    .not('doc_no', 'is', null)
-    .neq('doc_no', '');
-  var max = 0;
-  (data || []).forEach(function(r) {
-    if (/^\d+$/.test(r.doc_no)) {
-      var n = parseInt(r.doc_no);
-      if (n > max) max = n;
-    }
-  });
-  return String(max + 1);
-}
-
-async function approveLeave() {
-  if (!currentLeaveId) return;
-  const pool = currentReviewSource==='gm' ? allGmLeaves : currentReviewSource==='hr' ? allHrLeaves : allUnitLeaves;
-  const r = pool.find(x=>x.id===currentLeaveId);
-  if (!r) return;
-  closeModal();
-  var isUnitApprove = currentReviewSource !== 'gm' && currentReviewSource !== 'chairman' && currentReviewSource !== 'hr';
-  var needsGM = (r.days||0) >= 3 && isUnitApprove;
-
-  if (needsGM) {
-    // ≥3天且分社/管理部主管核准：轉交總經理審核
-    await sb.from('leave_requests').update({
-      status: 'pending',
-      reviewer_type: 'gm',
-      mgr_approved_by: currentUser.name,
-      reviewed_by: null,
-      reviewed_at: null
-    }).eq('id', r.id);
-    var gmMsg = '[請假待審] ' + r.emp_name + ' 申請 ' + r.leave_type + (r.leave_subtype||'') + '\n' +
-      '期間：' + r.start_date + ' ~ ' + r.end_date + '\n' +
-      '天數：' + r.days + ' 天（已獲主管 ' + currentUser.name + ' 核准，請您審核）';
-    await notifyGM(gmMsg);
-  } else {
-    // <3天 或 總經理/理事主席核准：直接核准並通知員工
-    var docNo = r.doc_no || await getNextDocNo();
-    await sb.from('leave_requests').update({
-      status:'approved', reviewed_by:currentUser.name, reviewed_at:new Date().toISOString(), doc_no: docNo
-    }).eq('id', r.id);
-    var empMsg = '[請假結果] 您的假單已核准 ✅\n' +
-      r.leave_type + (r.leave_subtype||'') + ' ' + r.start_date + ' ~ ' + r.end_date + '\n' +
-      daysText(r);
-    await notifyEmployee(r.emp_no, empMsg);
-  }
-  if (currentReviewSource==='gm') loadGmReview();
-  else if (currentReviewSource==='hr') loadHrAll();
-  else if (currentReviewSource==='chairman') loadChairmanReview();
-  else loadMgrReview();
-  alert('✅ 已核准假單');
-}
-
-async function rejectLeave() {
-  if (!currentLeaveId) return;
-  const reason = document.getElementById('modal-reject-reason').value.trim();
-  const pool = currentReviewSource==='gm' ? allGmLeaves : currentReviewSource==='hr' ? allHrLeaves : allUnitLeaves;
-  const r = pool.find(x=>x.id===currentLeaveId);
-  await sb.from('leave_requests').update({
-    status:'rejected', reviewed_by:currentUser.name,
-    reviewed_at:new Date().toISOString(), reject_reason:reason||null
-  }).eq('id', currentLeaveId);
-  closeModal();
-  if (r) {
-    var empMsg = '[請假結果] 您的假單已被拒絕 ❌\n' +
-      r.leave_type + (r.leave_subtype||'') + ' ' + r.start_date + ' ~ ' + r.end_date + '\n' +
-      (reason ? '原因：' + reason : '');
-    await notifyEmployee(r.emp_no, empMsg);
-  }
-  if (currentReviewSource==='gm') loadGmReview();
-  else if (currentReviewSource==='hr') loadHrAll();
-  else if (currentReviewSource==='chairman') loadChairmanReview();
-  else loadMgrReview();
-  alert('已拒絕假單');
-}
-
-let calTab = 'unit';
-let proxyLeaves = [];
-
-async function loadCalendar() {
-  var isChairman = currentUser.emp_no === CHAIRMAN_EMP_NO;
-
-  var calEmpNos = [];
-
-  var branchIds = ['16','25','34','43','52','61','70','89','98','104','113','122','131','140','159','168']; // 分社
-  var mgmtIds = branchIds; // 用來過濾：管理部=7開頭，分社=以下數字
-
-  if (isChairman) {
-    // 理事主席：各分社主管 + 總經理/副總
-    var mgrsRes = await sb.from('employees').select('emp_no,unit_id').eq('is_manager', true);
-    var gmRes = await sb.from('employees').select('emp_no').eq('is_gm', true);
-    calEmpNos = (mgrsRes.data||[]).filter(function(e){ return branchIds.includes(e.unit_id); })
-      .concat(gmRes.data||[]).map(function(e){ return e.emp_no; });
-
-  } else if (currentUser.emp_no === GM_EMP_NO) {
-    // 總經理（蔡景偉 General Manager）：各分社主管 + 所有副總
-    var mgrsRes = await sb.from('employees').select('emp_no,unit_id').eq('is_manager', true);
-    var gmRes = await sb.from('employees').select('emp_no,unit_id').eq('is_gm', true);
-    var filteredMgrs = (mgrsRes.data||[]).filter(function(e){ return branchIds.includes(e.unit_id); });
-    var filteredGm = (gmRes.data||[]);
-    if (dbg) dbg.textContent += ' mgrs:'+filteredMgrs.length+' gms:'+filteredGm.length;
-    calEmpNos = filteredMgrs.concat(filteredGm).map(function(e){ return e.emp_no; });
-
-  } else if (currentUser.is_gm && DIRECT_TO_CHAIRMAN.includes(currentUser.emp_no)) {
-    // 總稽核邱煥宸（General Auditor）：只看直屬部屬
-    var subsRes = await sb.from('employees').select('emp_no')
-      .eq('supervisor_emp_no', currentUser.emp_no);
-    calEmpNos = (subsRes.data||[]).map(function(e){ return e.emp_no; });
-
-  } else if (currentUser.is_gm) {
-    // 其他副總（張君明、高稵婕）：直屬部屬 + 直屬長官
-    var subsRes = await sb.from('employees').select('emp_no')
-      .eq('supervisor_emp_no', currentUser.emp_no);
-    var bosRes = await sb.from('employees').select('emp_no')
-      .eq('emp_no', currentUser.supervisor_emp_no);
-    calEmpNos = (subsRes.data||[]).concat(bosRes.data||[]).map(function(e){ return e.emp_no; });
-
-  } else if ((currentUser.is_manager || currentUser.is_sub_manager) && currentUser.unit_id && /^7(-|$)/.test(currentUser.unit_id)) {
-    // 管理部主管：直屬部屬 + 自己的直屬長官
-    var subsRes = await sb.from('employees').select('emp_no')
-      .eq('supervisor_emp_no', currentUser.emp_no);
-    calEmpNos = (subsRes.data||[]).map(function(e){ return e.emp_no; });
-    if (currentUser.supervisor_emp_no) calEmpNos.push(currentUser.supervisor_emp_no);
-
-  } else if (currentUser.unit_id && /^7(-|$)/.test(currentUser.unit_id)) {
-    // 管理部一般員工：直屬部屬（不太可能有）+ 自己的直屬長官
-    calEmpNos = [];
-    if (currentUser.supervisor_emp_no) calEmpNos.push(currentUser.supervisor_emp_no);
-
-  } else if (currentUser.is_manager || currentUser.is_sub_manager) {
-    // 分社主管/副主管：用員工編號查（避免舊假單 unit_id 為空的問題）
-    var unitEmpsRes = await sb.from('employees').select('emp_no')
-      .eq('unit_id', currentUser.unit_id).eq('is_active', true);
-    calEmpNos = (unitEmpsRes.data||[]).map(function(e){ return e.emp_no; });
-
-  } else {
-    // 一般員工：只看自己
-    calEmpNos = [currentUser.emp_no];
-  }
-
-  // 用 emp_no 清單查假單（非分社主管走這裡）
-  if (calEmpNos !== null) {
-    // 加入自己（除了理事主席）
-    if (!isChairman && calEmpNos.indexOf(currentUser.emp_no) < 0) {
-      calEmpNos.push(currentUser.emp_no);
-    }
-    calEmpNos = calEmpNos.filter(function(v,i,a){ return a.indexOf(v)===i; });
-    if (calEmpNos.length > 0) {
-      var res = await sb.from('leave_requests').select('*')
-        .in('emp_no', calEmpNos)
-        .in('status', ['pending', 'approved']);
-      allUnitLeaves = res.data || [];
-    } else {
-      allUnitLeaves = [];
-    }
-  }
-
-  var proxyRes = await sb.from('leave_requests').select('*')
-    .eq('proxy_name', currentUser.name).eq('status','approved');
-  proxyLeaves = proxyRes.data || [];
-  var dbg = document.getElementById('cal-debug');
-  if (dbg) dbg.textContent = 'v104 emp:'+currentUser.emp_no+' CHAIR:'+CHAIRMAN_EMP_NO+' match:'+(currentUser.emp_no===CHAIRMAN_EMP_NO)+' leaves:'+allUnitLeaves.length;
-  renderCalendar();
-}
-
-
-
-
-
-
-
-function renderCalendar() {
-  var months=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
-  document.getElementById('cal-title').textContent = calYear+' 年 '+months[calMonth];
-  var grid = document.getElementById('cal-grid');
-  var html2 = ['日','一','二','三','四','五','六'].map(function(d){ return '<div class="cal-day-header">'+d+'</div>'; }).join('');
-  var firstDay = new Date(calYear,calMonth,1).getDay();
-  var daysInMonth = new Date(calYear,calMonth+1,0).getDate();
-  var today = new Date();
-  for (var i=0;i<firstDay;i++) {
-    var d2=new Date(calYear,calMonth,-firstDay+i+1);
-    html2+='<div class="cal-day other-month"><div class="cal-day-num">'+d2.getDate()+'</div></div>';
-  }
-  for (var d=1;d<=daysInMonth;d++) {
-    var ds=calYear+'-'+String(calMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    var myLeaves = allUnitLeaves.filter(function(r){ return r.start_date<=ds&&r.end_date>=ds; });
-    var myProxies = proxyLeaves.filter(function(r){ return r.start_date<=ds&&r.end_date>=ds; });
-    var isToday = today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
-    var workday = isWorkday(ds);
-    var hName = HOLIDAYS[ds];
-    var hasApproved = workday && myLeaves.some(function(r){ return r.status==='approved'; });
-    var hasPending = workday && myLeaves.some(function(r){ return r.status==='pending'; });
-    var hasProxy = workday && myProxies.length>0;
-    var dayCls = isToday?'today':'';
-    if (hName) dayCls += ' is-holiday';
-    if (hasApproved && hasPending) dayCls += ' has-leave has-pending';
-    else if (hasApproved) dayCls += ' has-leave';
-    else if (hasPending) dayCls += ' has-pending';
-    if (hasProxy) dayCls += ' is-proxy';
-    var dots = '';
-    if (workday) {
-      myLeaves.forEach(function(r){
-        var dotColor = r.status==='pending' ? '#e74c3c' : getLeaveColor(r.leave_type);
-        var dotStyle = r.status==='pending' ? 'border:1.5px solid '+getLeaveColor(r.leave_type)+';background:transparent;' : 'background:'+dotColor+';';
-        dots += '<div class="cal-dot" style="'+dotStyle+'display:inline-block;"></div>';
-      });
-      if (hasProxy) dots += '<div class="cal-dot" style="background:#f39c12"></div>';
-    }
-    var hSpan = hName ? '<span class="cal-holiday-name">'+hName+'</span>' : '';
-    html2+='<div class="cal-day '+dayCls+'" data-ds="'+ds+'" onclick="showCalDay(this.dataset.ds)">' +
-      '<div class="cal-day-num">'+d+'</div>'+hSpan+dots+'</div>';
-  }
-  grid.innerHTML=html2;
-  document.getElementById('cal-detail').innerHTML='<div class="empty-hint">點選有標記的日期查看詳情</div>';
-}
-
-
-function showCalDay(ds) {
-  var detail = document.getElementById('cal-detail');
-  var out = '';
-  var myLeaves = allUnitLeaves.filter(function(r){ return r.start_date<=ds&&r.end_date>=ds; });
-  var myProxies = proxyLeaves.filter(function(r){ return r.start_date<=ds&&r.end_date>=ds; });
-  if (!myLeaves.length && !myProxies.length) { detail.innerHTML='<div class="empty-hint">'+ds+' 無紀錄</div>'; return; }
-  if (myLeaves.length) {
-    // 管理部一般員工看到直屬長官假單時也要顯示名字
-    var isMgmtStaff = currentUser.unit_id && /^7(-|$)/.test(currentUser.unit_id) && !currentUser.is_manager && !currentUser.is_gm;
-    var isMgrView = currentUser.is_manager || currentUser.is_gm || currentUser.is_sub_manager || currentUser.emp_no === CHAIRMAN_EMP_NO || isMgmtStaff;
-    var leaveTitle = isMgmtStaff
-      ? ds+' 請假紀錄（'+myLeaves.length+'筆）'
-      : isMgrView ? ds+' 單位請假（'+myLeaves.length+'人）' : ds+' 我的請假';
-    out += '<div style="font-size:13px;font-weight:600;color:var(--primary-dark);margin-bottom:.5rem">'+leaveTitle+'</div>';
-    out += myLeaves.map(function(r) {
-      var color = getLeaveColor(r.leave_type);
-      var statusMap = {pending:'待審核',approved:'已核准',rejected:'已拒絕'};
-      var badgeMap = {pending:'badge-pending',approved:'badge-approved',rejected:'badge-rejected'};
-      var namePrefix = isMgrView ? r.emp_name+' · ' : '';
-      // 判斷這張假單是否在當前使用者的審核權限範圍內
-      var canReview = false;
-      if (isMgrView && !isMgmtStaff && r.status === 'pending' && r.emp_no !== currentUser.emp_no) {
-        if (currentUser.emp_no === CHAIRMAN_EMP_NO) {
-          canReview = r.reviewer_type === 'chairman';
-        } else if (currentUser.is_gm && DIRECT_TO_CHAIRMAN.includes(currentUser.emp_no)) {
-          // 直送理事主席的副總：只能審 reviewer_emp_no = 自己 的假單
-          canReview = r.reviewer_emp_no === currentUser.emp_no && r.reviewer_type === 'mgmt';
-        } else if (currentUser.emp_no === GM_EMP_NO) {
-          // 總經理：只審 reviewer_type=gm
-          canReview = r.reviewer_type === 'gm';
-        } else if (currentUser.is_gm) {
-          // 副總：只審指派給自己的 mgmt 類型
-          canReview = r.reviewer_type === 'mgmt' && r.reviewer_emp_no === currentUser.emp_no;
-        } else if (currentUser.is_manager || currentUser.is_sub_manager) {
-          canReview = (r.reviewer_type === 'unit' && r.unit_id === currentUser.unit_id) ||
-                      (r.reviewer_type === 'mgmt' && r.reviewer_emp_no === currentUser.emp_no);
-        }
-      }
-      var reviewBtns = canReview
-        ? '<div style="margin-top:.5rem;display:flex;gap:8px">' +
-          '<button onclick="calApprove(\'' + r.id + '\')" style="flex:1;padding:7px;background:#1a5e38;color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">✅ 核准</button>' +
-          '<button onclick="calReject(\'' + r.id + '\')" style="flex:1;padding:7px;background:#e74c3c;color:#fff;border:none;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">❌ 拒絕</button>' +
-          '</div>'
-        : '';
-      return '<div class="leave-item '+r.status+'" style="margin-bottom:.5rem;border-left-color:'+color+'">' +
-        '<div class="leave-header"><div class="leave-name">'+namePrefix+r.leave_type+' — '+r.leave_subtype+'</div><span class="leave-badge '+(badgeMap[r.status]||'')+'">'+(statusMap[r.status]||r.status)+'</span></div>' +
-        '<div class="leave-meta">'+daysText(r)+'<br>代理人：'+(r.proxy_name||'—')+'</div>' +
-        reviewBtns + '</div>';
-    }).join('');
-  }
-  if (myProxies.length) {
-    out += '<div style="font-size:13px;font-weight:600;color:#555;margin:.75rem 0 .5rem">'+ds+' 我是代理人（'+myProxies.length+'筆）</div>';
-    out += myProxies.map(function(r) {
-      var color = getLeaveColor(r.leave_type);
-      return '<div class="leave-item approved" style="margin-bottom:.5rem;border-left-color:'+color+'">' +
-        '<div class="leave-header"><div class="leave-name">'+r.emp_name+' 請假</div><span class="leave-badge" style="background:#f39c12;color:#fff">代理中</span></div>' +
-        '<div class="leave-meta">'+r.leave_type+' — '+r.leave_subtype+'（'+daysText(r)+'）<br>擔任事務：'+(r.proxy_duty||'—')+'</div></div>';
-    }).join('');
-  }
-  detail.innerHTML = out;
-}
-
-
-
-async function calApprove(id) {
-  if (!confirm('確定核准這筆假單？')) return;
-  const pool = allUnitLeaves.concat(allGmLeaves);
-  const r = pool.find(x=>x.id===id || x.id===Number(id));
-  if (!r) return;
-  var isUnitApprove = currentUser.is_manager || currentUser.is_sub_manager;
-  var isGmOrChairman = currentUser.is_gm || currentUser.emp_no === CHAIRMAN_EMP_NO;
-  var needsGM = (r.days||0) >= 3 && isUnitApprove && !isGmOrChairman;
-
-  if (needsGM) {
-    await sb.from('leave_requests').update({
-      status: 'pending', reviewer_type: 'gm',
-      mgr_approved_by: currentUser.name,
-      reviewed_by: null, reviewed_at: null
-    }).eq('id', id);
-    var gmMsg = '[請假待審] ' + r.emp_name + ' 申請 ' + r.leave_type + (r.leave_subtype||'') + '\n' +
-      '期間：' + r.start_date + ' ~ ' + r.end_date + '\n' +
-      '天數：' + r.days + ' 天（已獲主管 ' + currentUser.name + ' 核准，請您審核）';
-    await notifyGM(gmMsg);
-  } else {
-    var docNo = r.doc_no || await getNextDocNo();
-    await sb.from('leave_requests').update({
-      status:'approved', reviewed_by:currentUser.name, reviewed_at:new Date().toISOString(), doc_no: docNo
-    }).eq('id', id);
-    var empMsg = '[請假結果] 您的假單已核准 ✅\n' +
-      r.leave_type + (r.leave_subtype||'') + ' ' + r.start_date + ' ~ ' + r.end_date + '\n' +
-      daysText(r);
-    await notifyEmployee(r.emp_no, empMsg);
-  }
-  await loadCalendar();
-}
-
-async function calReject(id) {
-  const reason = prompt('拒絕原因（可留空）：');
-  if (reason === null) return; // 取消
-  await sb.from('leave_requests').update({
-    status:'rejected', reviewed_by:currentUser.name,
-    reviewed_at:new Date().toISOString(), reject_reason:reason||null
-  }).eq('id', id);
-  await loadCalendar();
-}
-
-function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
-function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
-
-async function doSettingChangePw() {
-  const oldPw=document.getElementById('set-old-pw').value;
-  const pw1=document.getElementById('set-new-pw1').value;
-  const pw2=document.getElementById('set-new-pw2').value;
-  const err=document.getElementById('set-pw-error');
-  err.style.display='none';
-  const oldHash=await hashPw(oldPw);
-  const stored=currentUser.pw_hash||localStorage.getItem('pw_'+currentUser.emp_no)||await hashPw(currentUser.emp_no);
-  if (oldHash!==stored) { err.textContent='目前密碼錯誤'; err.style.display='block'; return; }
-  if (pw1.length<6) { err.textContent='新密碼至少6位'; err.style.display='block'; return; }
-  if (pw1!==pw2) { err.textContent='兩次密碼不一致'; err.style.display='block'; return; }
-  const newHash=await hashPw(pw1);
-  const { error:upErr }=await sb.from('employees').update({ pw_hash:newHash }).eq('emp_no', currentUser.emp_no);
-  if (upErr) { err.textContent='密碼更新失敗：'+upErr.message; err.style.display='block'; return; }
-  currentUser.pw_hash=newHash;
-  localStorage.removeItem('pw_'+currentUser.emp_no);
-  alert('✅ 密碼已更新');
-  ['set-old-pw','set-new-pw1','set-new-pw2'].forEach(id=>document.getElementById(id).value='');
-}
-
-
-// ── 下載 Excel（CSV格式）──
-function downloadLeaves() {
-  const unit = document.getElementById('hr-filter-unit').value;
-  const status = document.getElementById('hr-filter-status').value;
-  let filtered = allHrLeaves.slice();
-  if (unit) filtered = filtered.filter(function(r){ return r.unit_name===unit; });
-  if (status) filtered = filtered.filter(function(r){ return r.status===status; });
-  filtered = filtered.filter(function(r){ return r.status !== 'rejected'; });
-  if (!filtered.length) { alert('沒有資料可下載'); return; }
-  // 按 doc_no 排序（有的排前面），沒有 doc_no 的按 created_at 排後面
-  filtered.sort(function(a,b){
-    var an = a.doc_no ? parseInt(a.doc_no) || a.doc_no : Infinity;
-    var bn = b.doc_no ? parseInt(b.doc_no) || b.doc_no : Infinity;
-    if (an === Infinity && bn === Infinity) return new Date(a.created_at) - new Date(b.created_at);
-    if (typeof an === 'number' && typeof bn === 'number') return an - bn;
-    return String(an).localeCompare(String(bn));
-  });
-
-  // 欄位對應「給clude請假紀錄.xlsx」格式（22欄）
-  var headers = [
-    '請假編號','申請日期','申請人姓名','申請人員工編號','申請人單位','申請人職稱','申請人擔任事務',
-    '假別','假別細項','事由',
-    '請假起日','請假迄日','天數','起始時間','結束時間',
-    '代理人姓名','代理人員工編號','代理人單位','代理人職稱','代理人擔任事務',
-    '審核人','三日以上總經理審核日期'
-  ];
-  // 動態計算最大 doc_no（純數字的）
-  var maxDocNo = filtered.reduce(function(max, r) {
-    if (r.doc_no && /^\d+$/.test(r.doc_no)) {
-      var n = parseInt(r.doc_no);
-      return n > max ? n : max;
-    }
-    return max;
-  }, 655);
-  var newSeq = 0;
-  var rows = filtered.map(function(r, i) {
-    var statusText = r.status==='approved'?'已核准':r.status==='rejected'?'已拒絕':'待審核';
-    // 三日以上總經理審核日期：reviewer_type=gm 且天數>=3 且已審核
-    // W欄：3天以上已核准假單的審核日期，2026-02-13 改 2026-02-14
-    var gmReviewDate = '';
-    if (r.days >= 3 && r.status === 'approved' && r.reviewed_at) {
-      var reviewDate = r.reviewed_at.split('T')[0];
-      if (reviewDate === '2026-02-13') reviewDate = '2026-02-14';
-      gmReviewDate = reviewDate;
-    }
-    return [
-      r.doc_no || String(maxDocNo + (++newSeq)),
-      r.created_at ? r.created_at.split('T')[0] : '',
-      r.emp_name||'', r.emp_no||'', r.unit_name||'',
-      r.title || (empCache[r.emp_no]||{}).title || '',
-      r.duty || (empCache[r.emp_no]||{}).duty || '',
-      r.leave_type||'', r.leave_subtype||'', r.reason||'',
-      r.start_date||'', r.end_date||'', r.days||'',
-      r.start_time||'', r.end_time||'',
-      r.proxy_name||'',
-      r.proxy_emp_no || (empProxyCache[r.proxy_name]||{}).emp_no || '',
-      r.proxy_unit || (empProxyCache[r.proxy_name]||{}).unit_name || '',
-      r.proxy_title || (empProxyCache[r.proxy_name]||{}).title || '',
-      r.proxy_duty||'',
-      r.reviewed_by||'', gmReviewDate
-    ];
-  });
-
-  var BOM = '\uFEFF';
-  var csvContent = BOM + [headers].concat(rows).map(function(row) {
-    return row.map(function(cell) {
-      var s = String(cell == null ? '' : cell);
-      return (s.indexOf(',') >= 0 || s.indexOf('"') >= 0 || s.indexOf('\n') >= 0)
-        ? '"' + s.replace(/"/g, '""') + '"' : s;
-    }).join(',');
-  }).join('\n');
-
-  var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  var url = URL.createObjectURL(blob);
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = '請假紀錄_' + new Date().toISOString().split('T')[0] + '.csv';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ── 匯入 Excel（支援 .xlsx 和 .csv）──
-async function importLeaves(input) {
-  var file = input.files[0];
-  if (!file) return;
-  var msgEl = document.getElementById('import-msg');
-  msgEl.style.display = 'block';
-  msgEl.style.color = 'var(--muted)';
-  msgEl.textContent = '解析中...';
-
-  try {
-    // 動態載入 SheetJS
-    if (typeof XLSX === 'undefined') {
-      await new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
-        s.onload = resolve; s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
-
-    var arrayBuffer = await new Promise(function(resolve, reject) {
-      var reader = new FileReader();
-      reader.onload = function(e) { resolve(e.target.result); };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(file);
-    });
-
-    var wb = XLSX.read(arrayBuffer, { type: 'array', cellDates: true });
-
-    // 找「請假紀錄」sheet
-    var sheetName = wb.SheetNames.find(function(n){ return n.indexOf('請假紀錄') >= 0; });
-    if (!sheetName) sheetName = wb.SheetNames[0];
-    var ws = wb.Sheets[sheetName];
-    var rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, dateNF: 'yyyy-mm-dd' });
-
-    if (rows.length < 2) {
-      msgEl.style.color = 'var(--danger)';
-      msgEl.textContent = '找不到「請假紀錄」工作表或資料為空';
-      return;
-    }
-
-    var records = [];
-    var skipped = 0;
-
-    // 從第2行開始（跳過標題）
-    for (var i = 1; i < rows.length; i++) {
-      var cols = rows[i];
-      if (!cols || cols.length < 13) { skipped++; continue; }
-
-      var empNo = String(cols[3]||'').trim().replace('.0','');
-      var empName = String(cols[2]||'').trim();
-      var unitName = String(cols[4]||'').trim();
-      var leaveType = String(cols[7]||'').trim();
-      var leaveSubtype = String(cols[8]||'').trim();
-      var reason = String(cols[9]||'').trim();
-
-      // 日期處理（支援 Date 物件、yyyy-mm-dd 字串、Excel序號）
-      var startDate = parseDate(cols[10]);
-      var endDate = parseDate(cols[11]);
-      var days = parseFloat(cols[12]) || 0;
-
-      // 時間處理
-      var startTime = parseTime(cols[13]);
-      var endTime = parseTime(cols[14]);
-
-      var proxyName = String(cols[15]||'').trim();
-      var proxyDuty = cols[19] ? String(cols[19]).trim() : '';
-
-      if (!empNo || !startDate || !leaveType) { skipped++; continue; }
-
-      records.push({
-        emp_no: empNo, emp_name: empName, unit_name: unitName, unit_id: '',
-        leave_type: leaveType, leave_subtype: leaveSubtype,
-        start_date: startDate, end_date: endDate,
-        start_time: startTime, end_time: endTime,
-        days: days, reason: reason,
-        proxy_name: proxyName, proxy_duty: proxyDuty,
-        status: 'approved', reviewer_type: 'unit',
-        reviewed_by: cols[20] ? String(cols[20]).trim() : null,
-        reviewed_at: null
-      });
-    }
-
-    if (!records.length) {
-      msgEl.style.color = 'var(--danger)';
-      msgEl.textContent = '沒有找到可匯入的資料，請確認格式正確';
-      return;
-    }
-
-    // 去除 Excel 內部重複（同一人+起始日+假別）
-    var seen = {};
-    var deduped = [];
-    records.forEach(function(r) {
-      var key = r.emp_no + '|' + r.start_date + '|' + r.leave_type + '|' + r.leave_subtype;
-      if (!seen[key]) { seen[key] = true; deduped.push(r); }
-    });
-    var skippedDup = records.length - deduped.length;
-    if (skippedDup > 0) console.log('去除Excel內部重複:', skippedDup, '筆');
-
-    var result = await sb.from('leave_requests').upsert(deduped, {
-      onConflict: 'emp_no,start_date,leave_type,leave_subtype',
-      ignoreDuplicates: false
-    });
-
-    if (result.error) {
-      msgEl.style.color = 'var(--danger)';
-      msgEl.textContent = '匯入失敗：' + result.error.message;
-      return;
-    }
-
-    // 匯入完成，used_leave_days 已改為即時從 leave_requests 計算，不需回寫
-    msgEl.style.color = 'var(--success)';
-    msgEl.textContent = '✅ 成功匯入/更新 ' + deduped.length + ' 筆，跳過 ' + skipped + ' 筆（Excel內重複 ' + skippedDup + ' 筆）';
-    input.value = '';
-    loadHrAll();
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=33.5597&longitude=133.5311&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&timezone=Asia%2FTokyo';
+    const res = await fetch(url);
+    const d = await res.json();
+    const c = d.current;
+    const icon = wxIcon(c.weathercode);
+    const desc = wxDesc(c.weathercode);
+    bar.innerHTML =
+      '<div class="wx-icon">'+icon+'</div>'+
+      '<div class="wx-info">'+
+        '<div class="wx-temp">'+Math.round(c.temperature_2m)+'°C　'+desc+'</div>'+
+        '<div class="wx-desc">高知市　濕度 '+c.relativehumidity_2m+'%</div>'+
+      '</div>'+
+      '<div class="wx-extra">💨 '+Math.round(c.windspeed_10m)+' km/h<br><span style="font-size:10px;color:var(--light)">即時天氣</span></div>';
   } catch(e) {
-    msgEl.style.color = 'var(--danger)';
-    msgEl.textContent = '解析失敗：' + e.message;
+    bar.innerHTML = '<div class="wx-loading" style="color:var(--accent)">⚠ 天氣載入失敗，請確認網路連線</div>';
   }
 }
+function wxIcon(c){if(c===0)return'☀️';if(c<=2)return'🌤';if(c<=3)return'☁️';if(c<=49)return'🌫';if(c<=59)return'🌦';if(c<=69)return'🌧';if(c<=79)return'🌨';if(c<=84)return'🌧';if(c<=99)return'⛈';return'🌡';}
+function wxDesc(c){if(c===0)return'晴天';if(c<=2)return'部分多雲';if(c<=3)return'多雲';if(c<=49)return'有霧';if(c<=59)return'毛毛雨';if(c<=69)return'下雨';if(c<=79)return'下雪';if(c<=84)return'陣雨';if(c<=99)return'雷雨';return'天氣不明';}
+fetchWeather();
 
-function parseDate(val) {
-  if (!val) return null;
-  if (val instanceof Date) {
-    return val.toISOString().split('T')[0];
+// ── LEDGER ──
+const JPY_RATE = 0.215;
+let entries = [];
+try { entries = JSON.parse(localStorage.getItem('kochi_ledger') || '[]'); } catch(e) { entries = []; }
+
+function saveEntries(){ try{ localStorage.setItem('kochi_ledger', JSON.stringify(entries)); }catch(e){} }
+
+function addEntry(){
+  const name = document.getElementById('inp-name').value.trim();
+  const amt = parseFloat(document.getElementById('inp-amt').value);
+  const currency = document.getElementById('inp-currency').value;
+  const cat = document.getElementById('inp-cat').value;
+  const day = document.getElementById('inp-day').value;
+  if(!name || isNaN(amt) || amt<=0){ alert('請填寫項目名稱與金額'); return; }
+  entries.unshift({id:Date.now(), name, amt, currency, cat, day});
+  saveEntries();
+  document.getElementById('inp-name').value = '';
+  document.getElementById('inp-amt').value = '';
+  renderLedger();
+}
+
+function deleteEntry(id){
+  if(!confirm('確定刪除這筆紀錄？')) return;
+  entries = entries.filter(e => e.id !== id);
+  saveEntries();
+  renderLedger();
+}
+
+function renderLedger(){
+  const list = document.getElementById('ledger-list');
+  if(entries.length===0){
+    list.innerHTML = '<div class="empty-hint">還沒有紀錄<br>出發後開始記帳吧！🎌</div>';
+    document.getElementById('total-jpy').textContent = '¥ 0';
+    document.getElementById('total-twd').textContent = 'NT$ 0';
+    document.getElementById('total-count').textContent = '0 筆';
+    return;
   }
-  var s = String(val).trim();
-  // yyyy-mm-dd 格式
-  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.substring(0,10);
-  // Excel序號
-  var n = parseFloat(s);
-  if (!isNaN(n) && n > 40000) {
-    var d = new Date((n - 25569) * 86400 * 1000);
-    return d.toISOString().split('T')[0];
-  }
-  return null;
-}
-
-function parseTime(val) {
-  if (!val) return '08:40';
-  var s = String(val).trim();
-  if (/^\d{1,2}:\d{2}/.test(s)) {
-    var parts = s.split(':');
-    var h = parseInt(parts[0]);
-    var m = parseInt(parts[1]);
-    var total = h * 60 + m;
-    if (total <= 12*60+40) return total < 11*60 ? '08:40' : '12:40';
-    if (total <= 12*60+50) return '12:50';
-    return '17:40';
-  }
-  var n = parseFloat(s);
-  if (!isNaN(n)) {
-    var totalMin = Math.round(n * 1440);
-    var hr = Math.floor(totalMin / 60);
-    var mn = totalMin % 60;
-    var tot = hr * 60 + mn;
-    if (tot <= 12*60+40) return tot < 11*60 ? '08:40' : '12:40';
-    if (tot <= 12*60+50) return '12:50';
-    return '17:40';
-  }
-  return '08:40';
-}
-
-function parseCSVLine(line) {
-  var result = [];
-  var current = '';
-  var inQuotes = false;
-  for (var i = 0; i < line.length; i++) {
-    if (line[i] === '"') {
-      if (inQuotes && line[i+1] === '"') { current += '"'; i++; }
-      else inQuotes = !inQuotes;
-    } else if ((line[i] === '\t' || line[i] === ',') && !inQuotes) {
-      result.push(current); current = '';
-    } else {
-      current += line[i];
-    }
-  }
-  result.push(current);
-  return result;
-}
-
-function excelSerialToDate(serial) {
-  if (!serial) return null;
-  var n = parseFloat(serial);
-  if (isNaN(n) || n < 1000) return null;
-  var d = new Date((n - 25569) * 86400 * 1000);
-  return d.toISOString().split('T')[0];
-}
-
-function excelTimeToHHMM(decimal) {
-  if (!decimal) return '09:00';
-  var n = parseFloat(decimal);
-  if (isNaN(n)) return '09:00';
-  var totalMin = Math.round(n * 1440);
-  var h = Math.floor(totalMin / 60);
-  if (h < 11) return '08:40';
-  if (h < 15) return '12:50';
-  return '17:40';
-}
-
-// ── 刪除假單（人事專用）──
-async function deleteLeave(id) {
-  if (!confirm('確定要刪除這筆假單？此操作無法復原。')) return;
-  
-  // 找到這筆假單
-  var r = allHrLeaves.find(function(x){ return x.id === id; });
-  
-  var result = await sb.from('leave_requests').delete().eq('id', id);
-  if (result.error) { alert('刪除失敗：' + result.error.message); return; }
-  
-  alert('✅ 已刪除假單');
-  loadHrAll();
-}
-
-
-// 假別顏色：休假=紅色，病假=黃色，其餘=藍色
-function getLeaveColor(leaveType) {
-  if (leaveType === '休假') return '#c0392b';
-  if (leaveType === '病假') return '#e67e22';
-  return '#4a7fcb';
-}
-
-var adminMode = false;
-var allMgmtEmps = [];
-var allUnits = [];
-
-function toggleAdminMode() {
-  adminMode = !adminMode;
-  var toggle = document.getElementById('admin-toggle');
-  var knob = document.getElementById('admin-knob');
-  toggle.style.background = adminMode ? '#c0392b' : '#ccc';
-  knob.style.left = adminMode ? '20px' : '2px';
-  filterHrLeaves();
-}
-
-async function loadHrMgmt() {
-  var res = await sb.from('employees').select('*').order('unit_id').order('emp_no').limit(500);
-  allMgmtEmps = res.data || [];
-  if (res.error) { console.error('loadHrMgmt error:', res.error); }
-  allUnits = [{id:"7",name:"管理部"}, {id:"16",name:"營業部"}, {id:"25",name:"水碓分社"}, {id:"34",name:"竹圍分社"}, {id:"43",name:"英專分社"}, {id:"52",name:"義山分社"}, {id:"61",name:"三芝分社"}, {id:"70",name:"八里分社"}, {id:"89",name:"成州分社"}, {id:"98",name:"五股分社"}, {id:"104",name:"萬金分社"}, {id:"113",name:"新莊分社"}, {id:"122",name:"泰山分社"}, {id:"131",name:"林口分社"}, {id:"140",name:"板橋分社"}, {id:"159",name:"蘆洲分社"}, {id:"168",name:"三重分社"}];
-  var unitOpts = '<option value="">所有單位</option>' + allUnits.map(function(u){ return '<option value="'+u.id+'">'+u.name+'</option>'; }).join('');
-  document.getElementById('mgmt-filter-unit').innerHTML = unitOpts;
-  document.getElementById('new-emp-unit').innerHTML = allUnits.map(function(u){ return '<option value="'+u.id+'|'+u.name+'">'+u.name+'</option>'; }).join('');
-  filterMgmtEmps();
-}
-
-function filterMgmtEmps() {
-  var unitId = document.getElementById('mgmt-filter-unit').value;
-  var search = document.getElementById('mgmt-search').value.trim().toLowerCase();
-  var filtered = allMgmtEmps;
-  if (unitId) filtered = filtered.filter(function(e){ return e.unit_id===unitId; });
-  if (search) filtered = filtered.filter(function(e){ return e.name.indexOf(search)>=0||e.emp_no.indexOf(search)>=0; });
-  // 排序：先依單位ID，再依員工編號長度（6碼→7碼），再依編號
-  var unitOrderMap = {"7":1,"16":2,"25":3,"34":4,"43":5,"52":6,"61":7,"70":8,"89":9,"98":10,"104":11,"113":12,"122":13,"131":14,"140":15,"159":16,"168":17};
-  filtered.sort(function(a,b){
-    var ua = unitOrderMap[a.unit_id]||999;
-    var ub = unitOrderMap[b.unit_id]||999;
-    if (ua !== ub) return ua - ub;
-    if (a.emp_no.length !== b.emp_no.length) return a.emp_no.length - b.emp_no.length;
-    return a.emp_no.localeCompare(b.emp_no);
-  });
-  document.getElementById('mgmt-count').textContent = '共 '+filtered.length+' 人';
-  var list = document.getElementById('hr-mgmt-list');
-  if (!filtered.length) { list.innerHTML='<div class="empty-hint">沒有符合的員工</div>'; return; }
-  list.innerHTML = filtered.map(empMgmtItemHtml).join('');
-}
-
-function empMgmtItemHtml(e) {
-  var isActive = e.is_active !== false;
-  var statusBadge = isActive
-    ? '<span style="font-size:10px;background:#d1f0e0;color:#0f5132;padding:2px 7px;border-radius:20px;">正常</span>'
-    : '<span style="font-size:10px;background:#f8d7da;color:#842029;padding:2px 7px;border-radius:20px;">停用</span>';
-  var mgmtBadge = e.is_manager ? '<span style="font-size:10px;background:#fff3cd;color:#856404;padding:2px 7px;border-radius:20px;margin-left:3px;">主管</span>' : '';
-  var subMgrBadge = e.is_sub_manager ? '<span style="font-size:10px;background:#fde8d8;color:#9c4a00;padding:2px 7px;border-radius:20px;margin-left:3px;">副主管</span>' : '';
-  var hrBadge = e.is_hr ? '<span style="font-size:10px;background:#e8f4f0;color:#1a5276;padding:2px 7px;border-radius:20px;margin-left:3px;">人事</span>' : '';
-  var gmBadge = e.is_gm ? '<span style="font-size:10px;background:#f3e5ff;color:#6b21a8;padding:2px 7px;border-radius:20px;margin-left:3px;">總經理</span>' : '';
-
-  var unitOpts = allUnits.map(function(u){
-    return '<option value="'+u.id+'|'+u.name+'"'+(u.id===e.unit_id?' selected':'')+'>'+u.name+'</option>';
+  let totalJPY = 0;
+  entries.forEach(e => { totalJPY += e.currency==='JPY' ? e.amt : Math.round(e.amt/JPY_RATE); });
+  const totalTWD = Math.round(totalJPY * JPY_RATE);
+  document.getElementById('total-jpy').textContent = '¥ '+Math.round(totalJPY).toLocaleString();
+  document.getElementById('total-twd').textContent = 'NT$ '+totalTWD.toLocaleString();
+  document.getElementById('total-count').textContent = entries.length+' 筆';
+  list.innerHTML = entries.map(e => {
+    const disp = e.currency==='JPY' ? '¥ '+e.amt.toLocaleString() : 'NT$ '+e.amt.toLocaleString();
+    return '<div class="ledger-item">'+
+      '<div class="li-cat">'+e.cat+'</div>'+
+      '<div class="li-body"><div class="li-name">'+e.name+'</div><div class="li-meta">'+e.day+' · '+e.currency+'</div></div>'+
+      '<div class="li-amt">'+disp+'</div>'+
+      '<div class="li-del" onclick="deleteEntry('+e.id+')">✕</div>'+
+    '</div>';
   }).join('');
-
-  var toggleActiveBtn = isActive
-    ? '<button data-empno="'+e.emp_no+'" onclick="toggleActive(this,false)" style="padding:5px 10px;border:none;border-radius:6px;background:#f8d7da;color:#842029;cursor:pointer;font-size:11px;font-family:inherit;white-space:nowrap;">停用</button>'
-    : '<button data-empno="'+e.emp_no+'" onclick="toggleActive(this,true)" style="padding:5px 10px;border:none;border-radius:6px;background:#d1f0e0;color:#0f5132;cursor:pointer;font-size:11px;font-family:inherit;white-space:nowrap;">啟用</button>';
-
-  function roleBtn(field, label, activeStyle, activeColor, inactiveColor) {
-    var isOn = !!e[field];
-    return '<button data-empno="'+e.emp_no+'" data-field="'+field+'" data-current="'+(isOn?1:0)+'" onclick="toggleRole(this)" style="padding:5px 10px;border:1.5px solid var(--border);border-radius:6px;background:'+(isOn?activeStyle:'#fafafa')+';color:'+(isOn?activeColor:inactiveColor)+';cursor:pointer;font-size:11px;font-family:inherit;">'+(isOn?'✓ '+label:'設'+label)+'</button>';
-  }
-
-  return '<div data-empno="'+e.emp_no+'" style="background:#fff;border-radius:10px;padding:.85rem 1rem;margin-bottom:.6rem;box-shadow:0 1px 4px rgba(0,0,0,.06);'+(isActive?'':'opacity:.55;')+'">' +
-    '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem;">' +
-      '<div><span style="font-size:14px;font-weight:600;">'+e.name+'</span><span style="font-size:11px;color:var(--muted);margin-left:6px;">'+e.emp_no+'</span><br>' +
-      '<span style="font-size:11px;color:var(--muted);">'+e.unit_name+' · '+(e.title||'')+'</span></div>' +
-      '<div>'+statusBadge+mgmtBadge+subMgrBadge+hrBadge+gmBadge+'</div>' +
-    '</div>' +
-    '<div style="display:grid;grid-template-columns:1fr auto;gap:.5rem;margin-bottom:.4rem;align-items:center;">' +
-      '<select data-empno="'+e.emp_no+'" onchange="changeUnit(this)" style="padding:6px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:12px;font-family:inherit;background:#fafafa;-webkit-appearance:none;">'+unitOpts+'</select>' +
-      toggleActiveBtn +
-    '</div>' +
-    '<div style="display:flex;gap:.4rem;flex-wrap:wrap;">' +
-      roleBtn('is_manager', '主管', '#fff3cd', '#856404', 'var(--muted)') +
-      roleBtn('is_sub_manager', '副主管', '#fde8d8', '#9c4a00', 'var(--muted)') +
-      roleBtn('is_hr', '人事', '#e8f4f0', '#1a5276', 'var(--muted)') +
-      roleBtn('is_gm', '總經理', '#f3e5ff', '#6b21a8', 'var(--muted)') +
-      '<button data-empno="'+e.emp_no+'" onclick="resetPw(this)" style="padding:5px 10px;border:1.5px solid var(--border);border-radius:6px;background:#fafafa;color:var(--muted);cursor:pointer;font-size:11px;font-family:inherit;">重設密碼</button>' +
-    '</div>' +
-  '</div>';
 }
-
-
-async function addEmployee() {
-  var name = document.getElementById('new-emp-name').value.trim();
-  var empNo = document.getElementById('new-emp-no').value.trim();
-  if (empNo.length === 6) empNo = '0' + empNo;
-  var unitVal = document.getElementById('new-emp-unit').value;
-  var title = document.getElementById('new-emp-title').value.trim();
-  var days = parseFloat(document.getElementById('new-emp-days').value)||0;
-  var errEl = document.getElementById('new-emp-error');
-  errEl.style.display='none';
-  if (!name||!empNo||!unitVal) { errEl.textContent='請填寫姓名、員工編號和單位'; errEl.style.display='block'; return; }
-  var parts = unitVal.split('|');
-  var res = await sb.from('employees').insert({ emp_no:empNo, name:name, unit_id:parts[0], unit_name:parts[1], title:title, annual_leave_days:days, used_leave_days:0, is_manager:false, is_hr:false, is_gm:false, is_active:true });
-  if (res.error) { errEl.textContent = res.error.code==='23505'?'此員工編號已存在':'新增失敗：'+res.error.message; errEl.style.display='block'; return; }
-  alert('✅ 已新增 '+name+'，初始密碼為員工編號');
-  ['new-emp-name','new-emp-no','new-emp-title','new-emp-days'].forEach(function(id){ document.getElementById(id).value=''; });
-  loadHrMgmt();
-}
-
-async function toggleActive(btn, active) {
-  var empNo = btn.dataset.empno;
-  var emp = allMgmtEmps.find(function(e){ return e.emp_no===empNo; });
-  var msg = active ? '確定要啟用 '+emp.name+' 的帳號？' : '確定要停用 '+emp.name+' 的帳號？停用後無法登入，假單紀錄保留。';
-  if (!confirm(msg)) return;
-  await sb.from('employees').update({is_active:active}).eq('emp_no', empNo);
-  loadHrMgmt();
-}
-
-async function changeUnit(sel) {
-  var empNo = sel.dataset.empno;
-  var emp = allMgmtEmps.find(function(e){ return e.emp_no===empNo; });
-  var parts = sel.value.split('|');
-  var newUnitId = parts[0], newUnitName = parts[1];
-  if (!confirm('確定將 '+emp.name+' 的單位改為「'+newUnitName+'」？\n主管旗標將會清除，歷史假單也會一併搬移。')) { loadHrMgmt(); return; }
-  // 更新員工資料
-  await sb.from('employees').update({unit_id:newUnitId, unit_name:newUnitName, is_manager:false}).eq('emp_no', empNo);
-  // 歷史假單一併搬移
-  await sb.from('leave_requests').update({unit_id:newUnitId, unit_name:newUnitName}).eq('emp_no', empNo);
-  alert('✅ 單位已更新，歷史假單也已搬移至'+newUnitName+'');
-  loadHrMgmt();
-}
-
-async function toggleRole(btn) {
-  var empNo = btn.dataset.empno;
-  var field = btn.dataset.field;
-  var currentVal = btn.dataset.current === '1';
-  var newVal = !currentVal;
-  var emp = allMgmtEmps.find(function(e){ return e.emp_no===empNo; });
-  var roleNames = { is_manager:'主管', is_sub_manager:'副主管', is_hr:'人事', is_gm:'總經理' };
-  var roleName = roleNames[field] || field;
-  var msg = newVal
-    ? '確定將 '+emp.name+' 設為「'+roleName+'」？'
-    : '確定取消 '+emp.name+' 的「'+roleName+'」權限？';
-  if (!confirm(msg)) return;
-  // 主管：先確認同單位是否已有主管
-  if (field === 'is_manager' && newVal) {
-    var existing = allMgmtEmps.find(function(e){ return e.unit_id===emp.unit_id&&e.is_manager&&e.emp_no!==empNo; });
-    if (existing && !confirm(existing.name+' 目前是此單位主管，確定改為 '+emp.name+'？')) return;
-    if (existing) await sb.from('employees').update({is_manager:false}).eq('emp_no', existing.emp_no);
-  }
-  var update = {};
-  update[field] = newVal;
-  await sb.from('employees').update(update).eq('emp_no', empNo);
-  loadHrMgmt();
-}
-
-async function resetPw(btn) {
-  var empNo = btn.dataset.empno;
-  var emp = allMgmtEmps.find(function(e){ return e.emp_no===empNo; });
-  if (!confirm('確定要將 '+emp.name+' 的密碼重設為員工編號？')) return;
-  const { error }=await sb.from('employees').update({ pw_hash:null }).eq('emp_no', empNo);
-  if (error) { alert('重設失敗：'+error.message); return; }
-  alert('✅ 密碼已重設為員工編號（下次登入用編號登入即可）');
-}
-
-
-// ── 年度特休更新 ──
-function toggleAnnualPanel() {
-  var panel = document.getElementById('annual-panel');
-  var toggle = document.getElementById('annual-toggle');
-  var knob = document.getElementById('annual-knob');
-  var isOpen = panel.style.display !== 'none';
-  panel.style.display = isOpen ? 'none' : 'block';
-  toggle.style.background = isOpen ? '#ccc' : '#e67e22';
-  knob.style.left = isOpen ? '2px' : '20px';
-}
-
-var LEAVE_TABLE = [
-  [0, 0], [0.5, 3], [1, 7], [2, 10], [3, 14], [4, 14],
-  [5, 15], [6, 15], [7, 15], [8, 15], [9, 15],
-  [10, 16], [11, 17], [12, 18], [13, 19], [14, 20],
-  [15, 21], [16, 22], [17, 23], [18, 24], [19, 25],
-  [20, 26], [21, 27], [22, 28], [23, 29], [24, 30], [25, 30]
-];
-
-function calcAnnualDays(hireDate, baseDate) {
-  var hire = new Date(hireDate);
-  var base = new Date(baseDate);
-  var years = (base - hire) / (365.25 * 24 * 3600 * 1000);
-  if (years < 0) return 0;
-  // 找對照表
-  var days = 0;
-  for (var i = LEAVE_TABLE.length - 1; i >= 0; i--) {
-    if (years >= LEAVE_TABLE[i][0]) {
-      days = LEAVE_TABLE[i][1];
-      break;
-    }
-  }
-  return days;
-}
-
-async function updateAnnualLeave() {
-  var baseDate = document.getElementById('annual-base-date').value;
-  var msgEl = document.getElementById('annual-update-msg');
-  if (!baseDate) { alert('請輸入基準日期'); return; }
-  if (!confirm('確定要以 '+baseDate+' 為基準日，更新所有員工的年度特休天數？')) return;
-
-  msgEl.style.display = 'block';
-  msgEl.style.color = 'var(--muted)';
-  msgEl.textContent = '計算中...';
-
-  // 抓所有有到職日的員工
-  var res = await sb.from('employees').select('emp_no, name, hire_date').not('hire_date', 'is', null);
-  var emps = res.data || [];
-  var updated = 0, skipped = 0;
-
-  for (var i = 0; i < emps.length; i++) {
-    var emp = emps[i];
-    if (!emp.hire_date) { skipped++; continue; }
-    var newDays = calcAnnualDays(emp.hire_date, baseDate);
-    await sb.from('employees').update({ annual_leave_days: newDays }).eq('emp_no', emp.emp_no);
-    updated++;
-  }
-
-  msgEl.style.color = 'var(--success)';
-  msgEl.textContent = '✅ 已更新 '+updated+' 人的特休天數，跳過 '+skipped+' 人（無到職日）';
-  loadHrMgmt();
-}
-
-updateSubtype();
-</script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/leave-system/sw.js').then(function(reg) {
-      reg.update(); // 開啟時主動檢查新版
-      document.addEventListener('visibilitychange', function() {
-        if (document.visibilityState === 'visible') reg.update(); // 切回前景再檢查
-      });
-      reg.addEventListener('updatefound', function() {
-        var sw = reg.installing;
-        if (!sw) return;
-        sw.addEventListener('statechange', function() {
-          if (sw.state === 'installed' && navigator.serviceWorker.controller) {
-            sw.postMessage({ type: 'SKIP_WAITING' }); // 有新版就叫它立刻接管
-          }
-        });
-      });
-    }).catch(function(err) { console.log('SW failed:', err); });
-    // 新版接管後自動重整一次到最新
-    var refreshing = false;
-    navigator.serviceWorker.addEventListener('controllerchange', function() {
-      if (refreshing) return;
-      refreshing = true;
-      window.location.reload();
-    });
-  });
-}
+renderLedger();
 </script>
 </body>
 </html>
