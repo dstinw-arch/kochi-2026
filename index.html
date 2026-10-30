@@ -30,6 +30,14 @@ header h1 span{color:var(--accent);}
 .wx-desc{font-size:11px;color:var(--muted);margin-top:2px;}
 .wx-extra{font-size:11px;color:var(--muted);margin-left:auto;text-align:right;flex-shrink:0;line-height:1.6;}
 .wx-loading{font-size:12px;color:var(--muted);}
+.day-wx{display:flex;align-items:center;gap:10px;margin-top:.7rem;background:var(--paper2);border:.5px solid rgba(0,0,0,.08);border-radius:8px;padding:.5rem .75rem;flex-wrap:wrap;}
+.day-wx .wx-ic{font-size:1.5rem;line-height:1;flex-shrink:0;}
+.day-wx .wx-main{display:flex;flex-direction:column;min-width:0;}
+.day-wx .wx-t{font-size:13px;color:var(--ink);font-weight:500;}
+.day-wx .wx-sub{font-size:11px;color:var(--muted);margin-top:1px;}
+.day-wx .wx-rain{font-size:12px;color:var(--accent);font-weight:500;margin-left:auto;text-align:right;white-space:nowrap;}
+.day-wx .wx-mini{font-size:11px;color:var(--muted);}
+.day-wx.wx-na{color:var(--muted);}
 
 .tabs-wrapper{position:sticky;top:0;z-index:100;background:var(--paper2);border-bottom:1px solid rgba(0,0,0,.1);overflow-x:auto;scrollbar-width:none;}
 .tabs-wrapper::-webkit-scrollbar{display:none;}
@@ -153,7 +161,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <div id="page-itinerary" class="content active">
 
   <div class="day-section active" id="day-0">
-    <div class="day-hero"><div class="day-hero-label">DAY 1 · 10/31 週六</div><h2>抵達高知 · 市區初探</h2><p>台北 → 高知龍馬空港</p></div>
+    <div class="day-hero"><div class="day-hero-label">DAY 1 · 10/31 週六</div><h2>抵達高知 · 市區初探</h2><p>台北 → 高知龍馬空港</p><div class="day-wx" data-date="2026-10-31"><span class="wx-mini">🌤 天氣預報載入中…</span></div></div>
     <div class="highlights">
       <div class="hl-pill"><span class="hl-icon">🐟</span><span class="hl-text">炙燒鰹魚</span></div>
       <div class="hl-pill"><span class="hl-icon">🏪</span><span class="hl-text">弘人市場</span></div>
@@ -167,7 +175,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <div class="day-section" id="day-1">
-    <div class="day-hero"><div class="day-hero-label">DAY 2 · 11/01 週日</div><h2>桂濱海灘 · 企鵝互動</h2><p>白天玩近的，傍晚換進 OMO7</p></div>
+    <div class="day-hero"><div class="day-hero-label">DAY 2 · 11/01 週日</div><h2>桂濱海灘 · 企鵝互動</h2><p>白天玩近的，傍晚換進 OMO7</p><div class="day-wx" data-date="2026-11-01"><span class="wx-mini">🌤 天氣預報載入中…</span></div></div>
     <div class="highlights">
       <div class="hl-pill"><span class="hl-icon">🐧</span><span class="hl-text">企鵝互動</span></div>
       <div class="hl-pill"><span class="hl-icon">🌊</span><span class="hl-text">桂濱海灘</span></div>
@@ -185,7 +193,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <div class="day-section" id="day-2">
-    <div class="day-hero"><div class="day-hero-label">DAY 3 · 11/02 週一</div><h2>四萬十川 · 騎車搭船</h2><p>重頭戲！空曠幾乎沒有人</p></div>
+    <div class="day-hero"><div class="day-hero-label">DAY 3 · 11/02 週一</div><h2>四萬十川 · 騎車搭船</h2><p>重頭戲！空曠幾乎沒有人</p><div class="day-wx" data-date="2026-11-02"><span class="wx-mini">🌤 天氣預報載入中…</span></div></div>
     <div class="highlights">
       <div class="hl-pill"><span class="hl-icon">🚲</span><span class="hl-text">電動腳踏車</span></div>
       <div class="hl-pill"><span class="hl-icon">⛵</span><span class="hl-text">屋形船</span></div>
@@ -202,7 +210,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <div class="day-section" id="day-3">
-    <div class="day-hero"><div class="day-hero-label">DAY 4 · 11/03 週二</div><h2>OMO7 深度 · 充電休息日</h2><p>步調放慢，刻意留白</p></div>
+    <div class="day-hero"><div class="day-hero-label">DAY 4 · 11/03 週二</div><h2>OMO7 深度 · 充電休息日</h2><p>步調放慢，刻意留白</p><div class="day-wx" data-date="2026-11-03"><span class="wx-mini">🌤 天氣預報載入中…</span></div></div>
     <div class="highlights">
       <div class="hl-pill"><span class="hl-icon">🏨</span><span class="hl-text">OMO7早餐</span></div>
       <div class="hl-pill"><span class="hl-icon">🏯</span><span class="hl-text">高知城</span></div>
@@ -216,7 +224,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 
   <div class="day-section" id="day-4">
-    <div class="day-hero"><div class="day-hero-label">DAY 5 · 11/04 週三</div><h2>退房返台 · 帶著滿足回家</h2><p>高知 → 台北 → 淡水新市鎮</p></div>
+    <div class="day-hero"><div class="day-hero-label">DAY 5 · 11/04 週三</div><h2>退房返台 · 帶著滿足回家</h2><p>高知 → 台北 → 淡水新市鎮</p><div class="day-wx" data-date="2026-11-04"><span class="wx-mini">🌤 天氣預報載入中…</span></div></div>
     <div class="highlights">
       <div class="hl-pill"><span class="hl-icon">🎁</span><span class="hl-text">最後採購</span></div>
       <div class="hl-pill"><span class="hl-icon">✈️</span><span class="hl-text">龍馬空港</span></div>
@@ -342,7 +350,47 @@ async function fetchWeather() {
 }
 function wxIcon(c){if(c===0)return'☀️';if(c<=2)return'🌤';if(c<=3)return'☁️';if(c<=49)return'🌫';if(c<=59)return'🌦';if(c<=69)return'🌧';if(c<=79)return'🌨';if(c<=84)return'🌧';if(c<=99)return'⛈';return'🌡';}
 function wxDesc(c){if(c===0)return'晴天';if(c<=2)return'部分多雲';if(c<=3)return'多雲';if(c<=49)return'有霧';if(c<=59)return'毛毛雨';if(c<=69)return'下雨';if(c<=79)return'下雪';if(c<=84)return'陣雨';if(c<=99)return'雷雨';return'天氣不明';}
+
+// ── 每日預報：填入各天行程卡 ──
+async function fetchDailyWx() {
+  const els = Array.from(document.querySelectorAll('.day-wx'));
+  if (!els.length) return;
+  const dates = els.map(e => e.dataset.date).sort();
+  const start = dates[0], end = dates[dates.length - 1];
+  try {
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=33.5597&longitude=133.5311'
+      + '&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max'
+      + '&timezone=Asia%2FTokyo&start_date=' + start + '&end_date=' + end;
+    const d = await (await fetch(url)).json();
+    const times = (d.daily && d.daily.time) ? d.daily.time : [];
+    const idx = {};
+    times.forEach((dt, i) => { idx[dt] = i; });
+    els.forEach(el => {
+      const i = idx[el.dataset.date];
+      if (i === undefined) {
+        el.classList.add('wx-na');
+        el.innerHTML = '<span class="wx-mini">📅 預報尚未開放（出發前約 2 週更新）</span>';
+        return;
+      }
+      const code = d.daily.weathercode[i];
+      const tmax = Math.round(d.daily.temperature_2m_max[i]);
+      const tmin = Math.round(d.daily.temperature_2m_min[i]);
+      let pop = d.daily.precipitation_probability_max[i];
+      pop = (pop == null) ? '—' : Math.round(pop) + '%';
+      el.innerHTML =
+        '<span class="wx-ic">' + wxIcon(code) + '</span>'
+        + '<span class="wx-main">'
+        + '<span class="wx-t">' + tmax + '° / ' + tmin + '°　' + wxDesc(code) + '</span>'
+        + '<span class="wx-sub">高知 · 當日預報</span>'
+        + '</span>'
+        + '<span class="wx-rain">☔ ' + pop + '</span>';
+    });
+  } catch (e) {
+    els.forEach(el => { el.classList.add('wx-na'); el.innerHTML = '<span class="wx-mini">⚠ 天氣載入失敗，請確認網路</span>'; });
+  }
+}
 fetchWeather();
+fetchDailyWx();
 
 // ── LEDGER ──
 const JPY_RATE = 0.215;
